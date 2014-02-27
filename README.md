@@ -1,5 +1,7 @@
 #puppet-graylog2
 
+[![Build Status](https://travis-ci.org/synyx/puppet-graylog2.png)](https://travis-ci.org/synyx/puppet-graylog2)
+
 ##Overview
 
 This module manages a [graylog2](http://www.graylog2.org) setup including the [server](https://github.com/Graylog2/graylog2-server) and [web-interface](https://github.com/Graylog2/graylog2-web-interface).
