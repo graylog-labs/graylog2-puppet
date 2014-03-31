@@ -12,12 +12,23 @@ Supported plattform:
 * Ubuntu 12.04
 * CentOS 6.5
 
+## Installation
+
+This modules depends on [grafjo/openjdk7](https://github.com/grafjo/puppet-openjdk7). 
+So all repositories have to be checked out:
+
+```bash
+git clone git://github.com/synyx/puppet-graylog2.git modules/graylog2
+git clone git://github.com/graf/puppet-openjdk7.git modules/openjdk7
+```
 
 ##Usage
 
 This is the very basic usage:
 
 ```puppet
+class {'openjdk7::jre': }
+
 class {'graylog2::repo':}
 
 class {'graylog2::server':
