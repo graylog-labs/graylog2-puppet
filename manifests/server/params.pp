@@ -42,9 +42,9 @@ class graylog2::server::params {
     default  => fail("${::osfamily} is not supported by ${module_name}")
   }
 
-  $daemon_username = $::osfamily ? {
+  $daemon_user = $::osfamily ? {
     'Debian' => '_graylog2',
-    'RedHat' => 'graylog2',
+    'Redhat' => 'graylog2',
     default  => fail("${::osfamily} is not supported by ${module_name}")
   }
 

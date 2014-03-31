@@ -19,6 +19,8 @@ class graylog2::web (
   $run                   = $graylog2::web::params::run,
   $http_address          = $graylog2::web::params::http_address,
   $http_port             = $graylog2::web::params::http_port,
+  $config_file           = $graylog2::web::params::config_file,
+  $daemon_username       = $graylog2::web::params::daemon_username,
 
 ) inherits graylog2::web::params {
 
@@ -35,6 +37,8 @@ class graylog2::web (
     run                  => $run,
     http_address         => $http_address,
     http_port            => $http_port,
+    config_file          => $config_file,
+    daemon_username      => $daemon_username,
   }~>
   class {'graylog2::web::service':
     service_name          => $graylog2::web::params::service_name,

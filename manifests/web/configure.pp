@@ -9,6 +9,8 @@
 # Copyright 2014 synyx GmbH & Co. KG
 #
 class graylog2::web::configure (
+  $config_file,
+  $daemon_username,
   $graylog2_server_uris,
   $application_secret,
   $timezone = undef,
@@ -26,10 +28,16 @@ class graylog2::web::configure (
     content => template("${module_name}/web_default.erb"),
   }
 
-  file {'/etc/graylog2/web/graylog2-web-interface.conf':
+  ensure_resource('file', '/etc/graylog2', {
+    ensure => directory,
+    owner  => $daemon_username,
+    group  => $daemon_username,
+  })
+
+  file {$config_file:
     ensure  => file,
-    owner   => '_graylog2',
-    group   => '_graylog2',
+    owner   => $daemon_username,
+    group   => $daemon_username,
     mode    => '0640',
     content => template("${module_name}/graylog2-web-interface.conf.erb"),
   }

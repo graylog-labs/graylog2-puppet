@@ -62,11 +62,11 @@ class graylog2::server::configure (
     content => template("${module_name}/server_default.erb"),
   }
 
-  file { '/etc/graylog2':
+  ensure_resource('file', '/etc/graylog2', {
     ensure => directory,
     owner  => $daemon_username,
     group  => $daemon_username,
-  }
+  })
 
   file {$config_file:
     ensure  => file,

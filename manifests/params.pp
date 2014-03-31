@@ -45,17 +45,11 @@ class graylog2::params {
       'Redhat' => 1,
       default => fail("${::osfamily} is not supported by ${module_name}")
   }
-  
+
   $repo_enabled = $::osfamily ? {
       'Debian' => 0,
       'Redhat' => 1,
       default => fail("${::osfamily} is not supported by ${module_name}")
-  }
-
-  $daemon_user = $::osfamily ? {
-    'Debian' => '_graylog2',
-    'Redhat' => 'graylog2',
-    default  => fail("${::osfamily} is not supported by ${module_name}")
   }
 
 }
