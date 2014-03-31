@@ -9,6 +9,8 @@
 # Copyright 2014 synyx GmbH & Co. KG
 #
 class graylog2::server::configure (
+  $config_file,
+  $daemon_username,
   $run,
   $is_master,
   $node_id_file,
@@ -60,10 +62,16 @@ class graylog2::server::configure (
     content => template("${module_name}/server_default.erb"),
   }
 
-  file {'/etc/graylog2/server/server.conf':
+  file { '/etc/graylog2':
+    ensure => directory,
+    owner  => $daemon_username,
+    group  => $daemon_username,
+  }
+
+  file {$config_file:
     ensure  => file,
-    owner   => '_graylog2',
-    group   => '_graylog2',
+    owner   => $daemon_username,
+    group   => $daemon_username,
     mode    => '0640',
     content => template("${module_name}/server.conf.erb"),
   }

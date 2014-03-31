@@ -12,6 +12,8 @@ class graylog2::server (
   $package_version            = $graylog2::server::params::package_version,
   $manage_service_ensure      = $graylog2::server::params::manage_service_ensure,
   $manage_service_enable      = $graylog2::server::params::manage_service_enable,
+  $config_file   = $graylog2::server::params::config_file,
+  $daemon_username            = $graylog2::server::params::daemon_username,
   $run           = $graylog2::server::params::run,
   $is_master     = $graylog2::server::params::is_master,
   $node_id_file  = $graylog2::server::params::node_id_file,
@@ -61,6 +63,8 @@ class graylog2::server (
     version      => $package_version,
   } ~>
   class {'graylog2::server::configure':
+    config_file                         => $config_file,
+    daemon_username                     => $daemon_username,
     run                                 => $run,
     is_master                           => $is_master,
     node_id_file                        => $node_id_file,

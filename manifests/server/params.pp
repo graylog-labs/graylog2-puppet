@@ -11,14 +11,14 @@
 class graylog2::server::params {
 
   $package_name = $::osfamily ? {
-    'Debian' => 'graylog2-server',
+    /(Debian|RedHat)/ => 'graylog2-server',
     default  => fail("${::osfamily} is not supported by ${module_name}")
   }
 
   $package_version = 'installed'
 
   $service_name  = $::osfamily ? {
-    'Debian' => 'graylog2-server',
+    /(Debian|RedHat)/ => 'graylog2-server',
     default  => fail("${::osfamily} is not supported by ${module_name}")
   }
 
@@ -30,7 +30,23 @@ class graylog2::server::params {
 
   $is_master = true
 
-  $node_id_file = '/etc/graylog2/server/node-id'
+  $node_id_file =$::osfamily ? {
+    'Debian' => '/etc/graylog2/server/node-id',
+    'RedHat' => '/etc/graylog2/node-id',
+    default  => fail("${::osfamily} is not supported by ${module_name}")
+  }
+
+  $config_file = $::osfamily ? {
+    'Debian' => '/etc/graylog2/server/server.conf',
+    'RedHat' => '/etc/graylog2/server.conf',
+    default  => fail("${::osfamily} is not supported by ${module_name}")
+  }
+
+  $daemon_username = $::osfamily ? {
+    'Debian' => '_graylog2',
+    'RedHat' => 'graylog2',
+    default  => fail("${::osfamily} is not supported by ${module_name}")
+  }
 
   $root_username = 'admin'
 
