@@ -6,3 +6,5 @@ gem 'rake'
 gem 'puppet', puppetVersion
 gem 'puppet-lint'
 gem 'puppet-syntax'
+gem 'rspec'
+gem 'rspec-puppet'
