@@ -8,4 +8,3 @@ summary 'Puppet module to install and manage a graylog2 server and web interface
 description 'A Puppet module to install and manage a graylog2 server and web interface'
 dependency 'puppetlabs/stdlib', '>=0.0.1'
 dependency 'puppetlabs/apt', '>=0.0.1'
-dependency 'grafjo/openjdk7', '0.1.0'

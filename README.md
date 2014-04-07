@@ -7,19 +7,17 @@
 This module manages a [graylog2](http://www.graylog2.org) setup including the [server](https://github.com/Graylog2/graylog2-server) and [web-interface](https://github.com/Graylog2/graylog2-web-interface).
 
 Supported plattform:
-Supported plattform:
 * Debian 7
 * Ubuntu 12.04
 * CentOS 6.5
 
+There is an implicit dependency to java - make sure to setup java properly before using this module!
+
 ## Installation
 
-This modules depends on [grafjo/openjdk7](https://github.com/grafjo/puppet-openjdk7). 
-So all repositories have to be checked out:
 
 ```bash
 git clone git://github.com/synyx/puppet-graylog2.git modules/graylog2
-git clone git://github.com/graf/puppet-openjdk7.git modules/openjdk7
 ```
 
 ##Usage
@@ -27,8 +25,6 @@ git clone git://github.com/graf/puppet-openjdk7.git modules/openjdk7
 This is the very basic usage:
 
 ```puppet
-class {'openjdk7::jre': }
-
 class {'graylog2::repo':}
 
 class {'graylog2::server':
