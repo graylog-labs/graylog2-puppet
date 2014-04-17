@@ -29,6 +29,7 @@ class graylog2::server::configure (
   $elasticsearch_index_prefix,
   $allow_leading_wildcard_searches,
   $elasticsearch_analyzer,
+  $elasticsearch_network_host = undef,
   $output_batch_size,
   $processbuffer_processors,
   $outputbuffer_processors,

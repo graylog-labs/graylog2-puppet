@@ -78,6 +78,9 @@ allow_leading_wildcard_searches = <%= @allow_leading_wildcard_searches %>
 #elasticsearch_discovery_zen_ping_multicast_enabled = false
 #elasticsearch_discovery_zen_ping_unicast_hosts = 192.168.1.203:9300
 
+<% if @elasticsearch_network_host %>
+elasticsearch_network_host = <%= @elasticsearch_network_host %>
+<% end %>
 
 # Analyzer (tokenizer) to use for message and full_message field. The "standard" filter usually is a good idea.
 # All supported analyzers are: standard, simple, whitespace, stop, keyword, pattern, language, snowball, custom
