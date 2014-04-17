@@ -17,6 +17,7 @@ class graylog2::server::configure (
   $password_secret = undef,
   $root_username,
   $root_password_sha2,
+  $plugin_dir,
   $rest_listen_uri,
   $rest_transport_uri = undef,
   $elasticsearch_config_file = undef,

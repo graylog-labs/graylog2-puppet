@@ -52,6 +52,12 @@ class graylog2::server::params {
 
   $root_password_sha2 = '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918' #admin
 
+  $plugin_dir = $::osfamily ? {
+    'Debian' => '/usr/share/graylog2-server/plugin',
+    'RedHat' => '/opt/graylog2/server/plugin',
+    default  => fail("${::osfamily} is not supported by ${module_name}")
+  }
+
   $rest_listen_uri = 'http://127.0.0.1:12900/'
 
   $elasticsearch_max_docs_per_index = 20000000

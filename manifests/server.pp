@@ -20,6 +20,7 @@ class graylog2::server (
   $password_secret            = undef,
   $root_username = $graylog2::server::params::root_username,
   $root_password_sha2         = $graylog2::server::params::root_password_sha2,
+  $plugin_dir                 = $graylog2::server::params::plugin_dir,
   $rest_listen_uri            = $graylog2::server::params::rest_listen_uri,
   $rest_transport_uri         = undef,
   $elasticsearch_config_file  = undef,

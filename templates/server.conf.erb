@@ -18,7 +18,7 @@ root_username = <%= @root_username %>
 root_password_sha2 = <%= @root_password_sha2 %>
 
 # Set plugin directory here (relative or absolute)
-plugin_dir = /opt/graylog2/server/plugin
+plugin_dir = <%= @plugin_dir %>
 
 # REST API listen URI. Must be reachable by other graylog2-server nodes if you run a cluster.
 rest_listen_uri = <%= @rest_listen_uri %>
