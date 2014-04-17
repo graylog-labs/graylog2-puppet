@@ -28,7 +28,7 @@ class graylog2::web (
   class {'graylog2::web::package':
     package      => $graylog2::web::params::package_name,
     version      => $package_version,
-  } ~>
+  } ->
   class {'graylog2::web::configure':
     graylog2_server_uris => $graylog2_server_uris,
     application_secret   => $application_secret,
@@ -39,12 +39,12 @@ class graylog2::web (
     http_port            => $http_port,
     config_file          => $config_file,
     daemon_username      => $daemon_username,
-  }~>
+  } ~>
   class {'graylog2::web::service':
     service_name          => $graylog2::web::params::service_name,
     manage_service_ensure => $manage_service_ensure,
     manage_service_enable => $manage_service_enable,
-  } ~>
+  } ->
   anchor {'graylog2::web::end': }
 
 }

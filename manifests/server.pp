@@ -63,7 +63,7 @@ class graylog2::server (
   class {'graylog2::server::package':
     package      => $graylog2::server::params::package_name,
     version      => $package_version,
-  } ~>
+  } ->
   class {'graylog2::server::configure':
     config_file                         => $config_file,
     daemon_username                     => $daemon_username,
@@ -113,7 +113,7 @@ class graylog2::server (
     service_name          => $graylog2::server::params::service_name,
     manage_service_ensure => $manage_service_ensure,
     manage_service_enable => $manage_service_enable,
-  } ~>
+  } ->
   anchor {'graylog2::server::end': }
 
 }
