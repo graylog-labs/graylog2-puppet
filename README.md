@@ -6,7 +6,7 @@
 
 This module manages a [graylog2](http://www.graylog2.org) setup including the [server](https://github.com/Graylog2/graylog2-server) and the [web-interface](https://github.com/Graylog2/graylog2-web-interface).
 
-Supported plattform:
+Supported plattforms:
 * Debian 7
 * Ubuntu 12.04
 * CentOS 6.5
