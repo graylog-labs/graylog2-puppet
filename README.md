@@ -4,7 +4,7 @@
 
 ##Overview
 
-This module manages a [graylog2](http://www.graylog2.org) setup including the [server](https://github.com/Graylog2/graylog2-server) and [web-interface](https://github.com/Graylog2/graylog2-web-interface).
+This module manages a [graylog2](http://www.graylog2.org) setup including the [server](https://github.com/Graylog2/graylog2-server) and the [web-interface](https://github.com/Graylog2/graylog2-web-interface).
 
 Supported plattform:
 * Debian 7
@@ -15,18 +15,23 @@ There is an implicit dependency to java - make sure to setup java properly befor
 
 ## Installation
 
+This module depends on:
+* [puppetlabs/apt](https://github.com/puppetlabs/puppetlabs-apt)
+* [puppetlabs/stdlib](https://github.com/puppetlabs/puppetlabs-stdlib)
+
+So all repositories have to be checked out:
 
 ```bash
-git clone git://github.com/synyx/puppet-graylog2.git modules/graylog2
+git clone https://github.com/synyx/puppet-graylog2.git modules/graylog2
+git clone https://github.com/puppetlabs/puppetlabs-apt.git modules/apt
+git clone https://github.com/puppetlabs/puppetlabs-stdlib.git modules/stdlib
 ```
 
 ##Usage
 
-This is the very basic usage:
+A graylog2 example including the server and the webinterface component
 
 ```puppet
-class {'graylog2::repo':}
-
 class {'graylog2::server':
   password_secret => 'veryStrongSecret',
 }
