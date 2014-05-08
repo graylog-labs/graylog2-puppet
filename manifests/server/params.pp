@@ -60,6 +60,10 @@ class graylog2::server::params {
 
   $rest_listen_uri = 'http://127.0.0.1:12900/'
 
+  $rest_enable_cors = false
+
+  $rest_enable_gzip = false
+
   $elasticsearch_max_docs_per_index = 20000000
 
   $elasticsearch_max_number_of_indices = 20
@@ -74,6 +78,8 @@ class graylog2::server::params {
 
   $allow_leading_wildcard_searches = false
 
+  $allow_highlighting = false
+
   $elasticsearch_analyzer = 'standard'
 
   $output_batch_size = 5000
@@ -85,6 +91,10 @@ class graylog2::server::params {
   $processor_wait_strategy = 'blocking'
 
   $ring_size = 1024
+
+  $dead_letters_enabled = false
+
+  $lb_recognition_period_seconds = 3
 
   $mongodb_useauth = false
 
