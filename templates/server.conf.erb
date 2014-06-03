@@ -29,6 +29,10 @@ rest_listen_uri = <%= @rest_listen_uri %>
 <% if @rest_transport_uri %>
 rest_transport_uri = <%= @rest_transport_uri %>
 <% end %>
+
+<% if @rest_enable_cors %>
+rest_enable_cors = <%= @rest_enable_cors %>
+<% end %>
 # Embedded elasticsearch configuration file
 # pay attention to the working directory of the server, maybe use an absolute path here
 #elasticsearch_config_file = /etc/graylog2-elasticsearch.yml
@@ -72,11 +76,21 @@ allow_leading_wildcard_searches = <%= @allow_leading_wildcard_searches %>
 
 # use a different port if you run multiple elasticsearch nodes on one machine
 #elasticsearch_transport_tcp_port = 9350
+<% if @elasticsearch_transport_tcp_port %>
+elasticsearch_transport_tcp_port = <%= @elasticsearch_transport_tcp_port %>
+<% end %>
 # we don't need to run the embedded HTTP server here
 #elasticsearch_http_enabled = false
 
 #elasticsearch_discovery_zen_ping_multicast_enabled = false
+<% if @elasticsearch_discovery_zen_ping_multicast_enabled %>
+elasticsearch_discovery_zen_ping_multicast_enabled = <%= @elasticsearch_discovery_zen_ping_multicast_enabled %>
+<% end %>
+
 #elasticsearch_discovery_zen_ping_unicast_hosts = 192.168.1.203:9300
+<% if @elasticsearch_discovery_zen_ping_unicast_hosts %>
+elasticsearch_discovery_zen_ping_unicast_hosts = <%= @elasticsearch_discovery_zen_ping_unicast_hosts %>
+<% end %>
 
 <% if @elasticsearch_network_host %>
 elasticsearch_network_host = <%= @elasticsearch_network_host %>
