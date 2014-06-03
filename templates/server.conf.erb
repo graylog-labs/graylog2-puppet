@@ -85,11 +85,21 @@ allow_highlighting = <%= @allow_highlighting %>
 
 # use a different port if you run multiple elasticsearch nodes on one machine
 #elasticsearch_transport_tcp_port = 9350
+<% if @elasticsearch_transport_tcp_port %>
+elasticsearch_transport_tcp_port = <%= @elasticsearch_transport_tcp_port %>
+<% end %>
 # we don't need to run the embedded HTTP server here
 #elasticsearch_http_enabled = false
 
 #elasticsearch_discovery_zen_ping_multicast_enabled = false
+<% if @elasticsearch_discovery_zen_ping_multicast_enabled %>
+elasticsearch_discovery_zen_ping_multicast_enabled = <%= @elasticsearch_discovery_zen_ping_multicast_enabled %>
+<% end %>
+
 #elasticsearch_discovery_zen_ping_unicast_hosts = 192.168.1.203:9300
+<% if @elasticsearch_discovery_zen_ping_unicast_hosts %>
+elasticsearch_discovery_zen_ping_unicast_hosts = <%= @elasticsearch_discovery_zen_ping_unicast_hosts %>
+<% end %>
 
 # the following settings allow to change the bind addresses for the elasticsearch client in graylog2
 # these settings are empty by default, letting elasticsearch choose automatically,
