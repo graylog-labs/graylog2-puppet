@@ -58,7 +58,7 @@ class graylog2::server::params {
     default  => fail("${::osfamily} is not supported by ${module_name}")
   }
 
-  $rest_listen_uri = 'http://127.0.0.1:12900/'
+  $rest_listen_uri = "http://${::ipaddress_eth0}:12900/"
 
   $rest_transport_uri = "http://${::ipaddress_eth0}:12900/"
 
