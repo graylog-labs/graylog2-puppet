@@ -22,7 +22,7 @@ class graylog2::server (
   $root_password_sha2         = $graylog2::server::params::root_password_sha2,
   $plugin_dir                 = $graylog2::server::params::plugin_dir,
   $rest_listen_uri            = $graylog2::server::params::rest_listen_uri,
-  $rest_transport_uri         = undef,
+  $rest_transport_uri         = $graylog2::server::params::rest_transport_uri,
   $rest_enable_cors           = $graylog2::server::params::rest_enable_cors,
   $rest_enable_gzip           = $graylog2::server::params::rest_enable_gzip,
   $elasticsearch_config_file  = undef,

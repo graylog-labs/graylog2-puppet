@@ -27,11 +27,7 @@ rest_listen_uri = <%= @rest_listen_uri %>
 # REST API transport address. Defaults to first non-loopback IPv4 system address and port 12900.
 # This will be promoted in the cluster discovery APIs and other nodes may try to connect on this
 # address. (see rest_listen_uri)
-<% if @rest_transport_uri %>
 rest_transport_uri = <%= @rest_transport_uri %>
-<% else %>
-#rest_transport_uri = http://192.168.1.1:12900/
-<% end %>
 
 # Enable CORS headers for REST api. This is necessary for JS-clients accessing the server directly.
 # If these are disabled, modern browsers will not be able to retrieve resources from the server.

@@ -60,6 +60,8 @@ class graylog2::server::params {
 
   $rest_listen_uri = 'http://127.0.0.1:12900/'
 
+  $rest_transport_uri = "http://${::ipaddress_eth0}:12900/"
+
   $rest_enable_cors = false
 
   $rest_enable_gzip = false
