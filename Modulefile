@@ -1,5 +1,5 @@
 name 'synyx-graylog2'
-version '0.4.2'
+version '0.5.0'
 author 'Johannes Graf'
 license 'MIT License'
 project_page 'https://github.com/synyx/puppet-graylog2'
