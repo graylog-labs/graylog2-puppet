@@ -16,6 +16,17 @@ There is an implicit dependency to java - make sure to setup java properly befor
 
 ## Installation
 
+
+### Librarian-puppet
+
+    mod 'synyx/graylog2', '0.5.1'
+
+### Puppet Module Tool:
+
+    puppet module install synyx/graylog2
+
+### Manual installation
+
 This module depends on:
 * [puppetlabs/apt](https://github.com/puppetlabs/puppetlabs-apt)
 * [puppetlabs/stdlib](https://github.com/puppetlabs/puppetlabs-stdlib)
