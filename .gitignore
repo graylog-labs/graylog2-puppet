@@ -1,5 +1,8 @@
 *~
-.project
-Gemfile.lock
-metadata.json
-pkg/
+/.bundle/
+/.project
+/.vagrant/
+/Gemfile.lock
+/metadata.json
+/pkg/
+/vendor/bundle
