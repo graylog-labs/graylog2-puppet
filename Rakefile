@@ -9,6 +9,14 @@ PuppetLint.configuration.send('disable_80chars')
 PuppetLint.configuration.send('disable_arrow_alignment')
 PuppetLint.configuration.log_format = "%{path}:%{linenumber}:%{check}:%{KIND}:%{message}"
 
+exclude_paths = [
+  "pkg/**/*",
+  "vendor/**/*",
+  "spec/**/*",
+]
+PuppetLint.configuration.ignore_paths = exclude_paths
+PuppetSyntax.exclude_paths = exclude_paths
+
 RSpec::Core::RakeTask.new(:spec) do |t|
   t.pattern = 'spec/*/*_spec.rb'
 end
