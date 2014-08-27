@@ -12,6 +12,7 @@ PuppetLint.configuration.send('disable_arrow_alignment')
 PuppetLint.configuration.log_format = "%{path}:%{linenumber}:%{check}:%{KIND}:%{message}"
 
 exclude_paths = [
+  "modules/**/*",
   "pkg/**/*",
   "vendor/**/*",
   "spec/**/*",
