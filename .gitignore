@@ -1,8 +1,13 @@
 *~
+*.swp
 /.bundle/
+/.librarian/
 /.project
+/.tmp/
 /.vagrant/
 /Gemfile.lock
 /metadata.json
+/modules/
 /pkg/
+/Puppetfile.lock
 /vendor/bundle
