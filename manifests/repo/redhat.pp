@@ -23,7 +23,15 @@ class graylog2::repo::redhat (
       gpgcheck => $gpgcheck,
       enabled  => $enabled,
       descr    => 'This is Graylog2',
+      require  => File['/etc/pki/rpm-gpg/RPM-GPG-KEY-graylog2'],
     }
   }
 
+  file {'/etc/pki/rpm-gpg/RPM-GPG-KEY-graylog2':
+    ensure => present,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0444',
+    source => 'puppet:///modules/graylog2/RPM-GPG-KEY-graylog2',
+  }
 }

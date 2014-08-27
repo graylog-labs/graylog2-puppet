@@ -12,22 +12,8 @@ class graylog2::params {
 
   $repo_name = 'graylog2'
 
-  $repo_baseurl = $::osfamily ? {
-      'Debian' => 'http://finja.brachium-system.net/~jonas/packages/graylog2_repro/',
-      'RedHat' => 'http://rpm.leebriggs.co.uk/',
-      default  => fail("${::osfamily} is not supported by ${module_name}")
-  }
-
-  $repo_key = $::osfamily ? {
-    'Debian' => '016CFFD0',
-    'RedHat' => '',
-    default  => fail("${::osfamily} is not supported by ${module_name}")
-  }
-
-  $repo_repos = 'main'
-
   $repo_release = $::osfamily ? {
-    'Debian' => 'wheezy',
+    'Debian' => $::lsbdistcodename,
     'RedHat' => '',
     default  => fail("${::osfamily} is not supported by ${module_name}")
   }
@@ -36,7 +22,7 @@ class graylog2::params {
 
   $repo_key_source = $::osfamily ? {
       'Debian' => '',
-      'Redhat' => 'http://rpm.leebriggs.co.uk/RPM-GPG-KEY-lbriggs',
+      'Redhat' => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-graylog2',
       default => fail("${::osfamily} is not supported by ${module_name}")
   }
 

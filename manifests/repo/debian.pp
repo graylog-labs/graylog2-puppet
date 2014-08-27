@@ -13,7 +13,6 @@ class graylog2::repo::debian (
   $baseurl,
   $release,
   $repos,
-  $key,
   $pin
 ) {
 
@@ -22,10 +21,17 @@ class graylog2::repo::debian (
       location    => $baseurl,
       release     => $release,
       repos       => $repos,
-      key         => $key,
       pin         => $pin,
       include_src => false,
+      require     => File['/etc/apt/trusted.gpg.d/graylog2-keyring.gpg'],
     }
   }
 
+  file {'/etc/apt/trusted.gpg.d/graylog2-keyring.gpg':
+    ensure => present,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0444',
+    source => 'puppet:///modules/graylog2/graylog2-keyring.gpg',
+  }
 }

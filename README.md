@@ -44,7 +44,7 @@ git clone https://github.com/puppetlabs/puppetlabs-stdlib.git modules/stdlib
 A graylog2 example including the server and the webinterface component
 
 ```puppet
-class {'graylog2::repo':}
+class {'graylog2::repo': version => '0.21'}
 
 class {'graylog2::server':
   password_secret => 'veryStrongSecret',
