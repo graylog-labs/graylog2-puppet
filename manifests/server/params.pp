@@ -43,7 +43,7 @@ class graylog2::server::params {
   }
 
   $daemon_username = $::osfamily ? {
-    'Debian' => '_graylog2',
+    'Debian' => 'graylog2',
     'Redhat' => 'graylog2',
     default  => fail("${::osfamily} is not supported by ${module_name}")
   }
@@ -72,7 +72,7 @@ class graylog2::server::params {
 
   $retention_strategy = 'delete'
 
-  $elasticsearch_shards = 1
+  $elasticsearch_shards = 4
 
   $elasticsearch_replicas = 0
 
@@ -84,11 +84,11 @@ class graylog2::server::params {
 
   $elasticsearch_analyzer = 'standard'
 
-  $output_batch_size = 5000
+  $output_batch_size = 25
 
   $processbuffer_processors = 5
 
-  $outputbuffer_processors = 5
+  $outputbuffer_processors = 3
 
   $processor_wait_strategy = 'blocking'
 
