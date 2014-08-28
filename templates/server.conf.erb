@@ -43,6 +43,8 @@ rest_enable_gzip = <%= @rest_enable_gzip %>
 #elasticsearch_config_file = /etc/graylog2-elasticsearch.yml
 <% if @elasticsearch_config_file %>
 elasticsearch_config_file = <%= @elasticsearch_config_file %>
+<% else %>
+#elasticsearch_config_file = /etc/graylog2-elasticsearch.yml
 <% end %>
 
 # (Approximate) maximum number of documents in an Elasticsearch index before a new index
@@ -50,7 +52,7 @@ elasticsearch_config_file = <%= @elasticsearch_config_file %>
 elasticsearch_max_docs_per_index = <%= @elasticsearch_max_docs_per_index %>
 
 # Disable message retention on this node, i. e. disable Elasticsearch index rotation.
-#no_retention = false
+no_retention = <%= @no_retention %>
 
 # How many indices do you want to keep?
 # elasticsearch_max_number_of_indices*elasticsearch_max_docs_per_index=total number of messages in your setup
@@ -80,35 +82,31 @@ allow_highlighting = <%= @allow_highlighting %>
 # settings to be passed to elasticsearch's client (overriding those in the provided elasticsearch_config_file)
 # all these
 # this must be the same as for your Elasticsearch cluster
-#elasticsearch_cluster_name = graylog2
+elasticsearch_cluster_name = <%= @elasticsearch_cluster_name %>
 
 # you could also leave this out, but makes it easier to identify the graylog2 client instance
-#elasticsearch_node_name = graylog2-server
+elasticsearch_node_name = <%= @elasticsearch_node_name %>
 
 # we don't want the graylog2 server to store any data, or be master node
-#elasticsearch_node_master = false
-#elasticsearch_node_data = false
+elasticsearch_node_master = <%= @elasticsearch_node_master %>
+elasticsearch_node_data = <%= @elasticsearch_node_data %>
 
 # use a different port if you run multiple Elasticsearch nodes on one machine
-#elasticsearch_transport_tcp_port = 9350
-<% if @elasticsearch_transport_tcp_port %>
 elasticsearch_transport_tcp_port = <%= @elasticsearch_transport_tcp_port %>
-<% end %>
-# we don't need to run the embedded HTTP server here
-#elasticsearch_http_enabled = false
 
-#elasticsearch_discovery_zen_ping_multicast_enabled = false
-<% if @elasticsearch_discovery_zen_ping_multicast_enabled %>
+# we don't need to run the embedded HTTP server here
+elasticsearch_http_enabled = <%= @elasticsearch_http_enabled %>
+
 elasticsearch_discovery_zen_ping_multicast_enabled = <%= @elasticsearch_discovery_zen_ping_multicast_enabled %>
-<% end %>
-#elasticsearch_discovery_zen_ping_unicast_hosts = 192.168.1.203:9300
 <% if @elasticsearch_discovery_zen_ping_unicast_hosts %>
 elasticsearch_discovery_zen_ping_unicast_hosts = <%= @elasticsearch_discovery_zen_ping_unicast_hosts %>
+<% else %>
+#elasticsearch_discovery_zen_ping_unicast_hosts = 192.168.1.203:9300
 <% end %>
 
 # Change the following setting if you are running into problems with timeouts during Elasticsearch cluster discovery.
 # The setting is specified in milliseconds, the default is 5000ms (5 seconds).
-# elasticsearch_cluster_discovery_timeout = 5000
+elasticsearch_cluster_discovery_timeout = <%= @elasticsearch_cluster_discovery_timeout %>
 
 # the following settings allow to change the bind addresses for the Elasticsearch client in graylog2
 # these settings are empty by default, letting Elasticsearch choose automatically,
@@ -133,6 +131,10 @@ elasticsearch_network_publish_host = <%= @elasticsearch_network_publish_host %>
 # elasticsearch_network_publish_host =
 <% end %>
 
+# The total amount of time discovery will look for other Elasticsearch nodes in the cluster
+# before giving up and declaring the current node master.
+elasticsearch_discovery_initial_state_timeout = <%= @elasticsearch_discovery_initial_state_timeout %>
+#
 # Analyzer (tokenizer) to use for message and full_message field. The "standard" filter usually is a good idea.
 # All supported analyzers are: standard, simple, whitespace, stop, keyword, pattern, language, snowball, custom
 # Elasticsearch documentation: http://www.elasticsearch.org/guide/reference/index-modules/analysis/
@@ -146,10 +148,22 @@ elasticsearch_analyzer = <%= @elasticsearch_analyzer %>
 # ("outputbuffer_processors" variable)
 output_batch_size = <%= @output_batch_size %>
 
+# Flush interval (in seconds) for the Elasticsearch output. This is the maximum amount of time between two
+# batches of messages written to Elasticsearch. It is only effective at all if your minimum number of messages
+# for this time period is less than output_batch_size * outputbuffer_processors.
+output_flush_interval = <%= @output_flush_interval %>
+
 # The number of parallel running processors.
 # Raise this number if your buffers are filling up.
 processbuffer_processors = <%= @processbuffer_processors %>
 outputbuffer_processors = <%= @outputbuffer_processors %>
+
+outputbuffer_processor_keep_alive_time = <%= @outputbuffer_processor_keep_alive_time %>
+outputbuffer_processor_threads_core_pool_size = <%= @outputbuffer_processor_threads_core_pool_size %>
+outputbuffer_processor_threads_max_pool_size = <%= @outputbuffer_processor_threads_max_pool_size %>
+
+# UDP receive buffer size for all message inputs (e. g. SyslogUDPInput).
+udp_recvbuffer_sizes = <%= @udp_recvbuffer_sizes %>
 
 # Wait strategy describing how buffer processors wait on a cursor sequence. (default: sleeping)
 # Possible types:
@@ -181,20 +195,46 @@ dead_letters_enabled = <%= @dead_letters_enabled %>
 # shutdown process. Set to 0 if you have no status checking load balancers in front.
 lb_recognition_period_seconds = <%= @lb_recognition_period_seconds %>
 
+# Every message is matched against the configured streams and it can happen that a stream contains rules which
+# take an unusual amount of time to run, for example if its using regular expressions that perform excessive backtracking.
+# This will impact the processing of the entire server. To keep such misbehaving stream rules from impacting other
+# streams, Graylog2 limits the execution time for each stream.
+# The default values are noted below, the timeout is in milliseconds.
+# If the stream matching for one stream took longer than the timeout value, and this happened more than "max_faults" times
+# that stream is disabled and a notification is shown in the web interface.
+stream_processing_timeout = <%= @stream_processing_timeout %>
+stream_processing_max_faults = <%= @stream_processing_max_faults %>
+
+# Since 0.21 the graylog2 server supports pluggable output modules. This means a single message can be written to multiple
+# outputs. The next setting defines the timeout for a single output module, including the default output module where all
+# messages end up. This setting is specified in milliseconds.
+
+# Time in milliseconds to wait for all message outputs to finish writing a single message.
+output_module_timeout = <%= @output_module_timeout %>
+
+# Time in milliseconds after which a detected stale master node is being rechecked on startup.
+stale_master_timeout = <%= @stale_master_timeout%>
+
+# Time in milliseconds which Graylog2 is waiting for all threads to stop on shutdown.
+shutdown_timeout = <%= @shutdown_timeout %>
+
 # MongoDB Configuration
 mongodb_useauth = <%= @mongodb_useauth %>
-#mongodb_user = grayloguser
 <% if @mongodb_user %>
 mongodb_user = <%= @mongodb_user %>
+<% else %>
+#mongodb_user = grayloguser
 <% end %>
-#mongodb_password = 123
 <% if @mongodb_password %>
 mongodb_password = <%= @mongodb_password %>
+<% else %>
+#mongodb_password = 123
 <% end %>
 mongodb_host = <%= @mongodb_host %>
-#mongodb_replica_set = localhost:27017,localhost:27018,localhost:27019
 <% if @mongodb_replica_set %>
 mongodb_replica_set = <%= @mongodb_replica_set.join(',') %>
+<% else %>
+#mongodb_replica_set = localhost:27017,localhost:27018,localhost:27019
 <% end %>
 mongodb_database = <%= @mongodb_database %>
 mongodb_port = <%= @mongodb_port %>
@@ -209,7 +249,11 @@ mongodb_threads_allowed_to_block_multiplier = <%= @mongodb_threads_allowed_to_bl
 
 # Drools Rule File (Use to rewrite incoming log messages)
 # See: http://support.torch.sh/help/kb/graylog2-server/custom-message-rewritingprocessing
+<% if @rules_file %>
+rules_file = <%= @rules_file %>
+<% else %>
 #rules_file = /etc/graylog2.drl
+<% end %>
 
 # Email transport
 transport_email_enabled = <%= @transport_email_enabled %>
@@ -238,3 +282,30 @@ http_proxy_uri = <%= @http_proxy_uri %>
 <% else %>
 #http_proxy_uri =
 <% end %>
+
+# Switch to enable/disable the off-heap message cache. Stores cached messages in the spool directory if set to true.
+# Stores the messages in an in-memory data structure if set to false.
+message_cache_off_heap = <%= @message_cache_off_heap %>
+
+# Directory for the off-heap message cache data. (absolute or relative)
+message_cache_spool_dir = <%= @message_cache_spool_dir %>
+
+# The commit interval for the message cache in milliseconds. Only affects message cache implementations that need to commit data.
+message_cache_commit_interval = <%= @message_cache_commit_interval %>
+
+# Connection timeout for a configured LDAP server (e. g. ActiveDirectory) in milliseconds.
+ldap_connection_timeout = <%= @ldap_connection_timeout %>
+
+# Version checks settings. All timeouts are in milliseconds.
+versionchecks = <%= @versionchecks %>
+versionchecks_uri = <%= @versionchecks_uri %>
+versionchecks_connection_request_timeout = <%= @versionchecks_connection_request_timeout %>
+versionchecks_connect_timeout = <%= @versionchecks_connect_timeout %>
+versionchecks_socket_timeout = <%= @versionchecks_socket_timeout %>
+
+# https://github.com/bazhenov/groovy-shell-server
+groovy_shell_enable = <%= @groovy_shell_enable %>
+groovy_shell_port = <%= @groovy_shell_port %>
+
+# Enable collection of Graylog2-related metrics into MongoDB
+enable_metrics_collection = <%= @enable_metrics_collection %>

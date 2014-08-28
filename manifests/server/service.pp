@@ -10,15 +10,30 @@
 #
 class graylog2::server::service (
   $service_name,
-  $manage_service_ensure,
-  $manage_service_enable,
+  $service_ensure,
+  $service_enable,
 ) {
 
-  service { $service_name:
-    ensure     => $manage_service_ensure,
-    enable     => $manage_service_enable,
-    hasstatus  => true,
-    hasrestart => true,
+  $service_provider = $::operatingsystem ? {
+    'Ubuntu' => 'upstart',
+    default  => undef,
+  }
+
+  if $service_provider {
+    service { $service_name:
+      ensure     => $service_ensure,
+      enable     => $service_enable,
+      hasstatus  => true,
+      hasrestart => true,
+      provider   => 'upstart',
+    }
+  } else {
+    service { $service_name:
+      ensure     => $service_ensure,
+      enable     => $service_enable,
+      hasstatus  => true,
+      hasrestart => true,
+    }
   }
 
 }
