@@ -90,8 +90,8 @@ class graylog2::server::params {
   $processor_wait_strategy = 'blocking'
   $rest_enable_cors = false
   $rest_enable_gzip = false
-  $rest_listen_uri = "http://${::ipaddress_eth0}:12900/"
-  $rest_transport_uri = "http://${::ipaddress_eth0}:12900/"
+  $rest_listen_uri = "http://127.0.0.1:12900/"
+  $rest_transport_uri = "http://127.0.0.1:12900/"
   $retention_strategy = 'delete'
   $ring_size = 1024
   $root_password_sha2 = undef
