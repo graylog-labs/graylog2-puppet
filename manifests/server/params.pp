@@ -94,7 +94,7 @@ class graylog2::server::params {
   $rest_transport_uri = "http://${::ipaddress_eth0}:12900/"
   $retention_strategy = 'delete'
   $ring_size = 1024
-  $root_password_sha2 = '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918' #admin
+  $root_password_sha2 = undef
   $root_username = 'admin'
   $rules_file = undef
   $shutdown_timeout = 30000

@@ -47,7 +47,8 @@ A graylog2 example including the server and the webinterface component
 class {'graylog2::repo': version => '0.21'}
 
 class {'graylog2::server':
-  password_secret => 'veryStrongSecret',
+  password_secret    => 'veryStrongSecret',
+  root_password_sha2 => 'sha256PasswordHash'
 }
 
 class {'graylog2::web':

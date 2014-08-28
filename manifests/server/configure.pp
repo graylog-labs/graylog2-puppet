@@ -202,6 +202,15 @@ class graylog2::server::configure (
     fail("The password_secret parameter is too short. (at least 64 characters)!")
   }
 
+  # This is required and there is no default!
+  if ! $root_password_sha2 {
+    fail("Missing or empty root_password_sha2 parameter!")
+  }
+
+  if size($root_password_sha2) < 64 {
+    fail("The root_password_sha2 parameter does not look like a SHA256 checksum!")
+  }
+
   ensure_resource('file', '/etc/graylog2', {
     ensure => directory,
     owner  => $daemon_username,
