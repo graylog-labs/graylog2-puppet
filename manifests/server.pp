@@ -14,7 +14,6 @@ class graylog2::server (
   $service_enable  = $graylog2::server::params::service_enable,
   $config_file     = $graylog2::server::params::config_file,
   $daemon_username = $graylog2::server::params::daemon_username,
-  $run             = $graylog2::server::params::run,
 
   $allow_highlighting                                 = $graylog2::server::params::allow_highlighting,
   $allow_leading_wildcard_searches                    = $graylog2::server::params::allow_leading_wildcard_searches,
@@ -113,7 +112,6 @@ class graylog2::server (
   class {'graylog2::server::configure':
     config_file     => $config_file,
     daemon_username => $daemon_username,
-    run             => $run,
 
     allow_highlighting                                 => $allow_highlighting,
     allow_leading_wildcard_searches                    => $allow_leading_wildcard_searches,

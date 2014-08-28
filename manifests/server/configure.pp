@@ -11,7 +11,6 @@
 class graylog2::server::configure (
   $config_file,
   $daemon_username,
-  $run,
 
   $allow_highlighting,
   $allow_leading_wildcard_searches,
@@ -101,14 +100,6 @@ class graylog2::server::configure (
   $versionchecks,
   $versionchecks_uri,
 ) {
-
-  file { '/etc/default/graylog2-server':
-    ensure  => file,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
-    content => template("${module_name}/server_default.erb"),
-  }
 
   ensure_resource('file', '/etc/graylog2', {
     ensure => directory,
