@@ -1,6 +1,6 @@
 #puppet-graylog2
 
-[![Build Status](https://travis-ci.org/synyx/puppet-graylog2.png)](https://travis-ci.org/synyx/puppet-graylog2)
+[![Build Status](https://travis-ci.org/Graylog2/puppet.png)](https://travis-ci.org/Graylog2/puppet)
 
 ##Overview
 
@@ -19,11 +19,11 @@ There is an implicit dependency to java - make sure to setup java properly befor
 
 ### Librarian-puppet
 
-    mod 'synyx/graylog2', '0.5.1'
+    mod 'graylog2/graylog2', '0.5.1'
 
 ### Puppet Module Tool:
 
-    puppet module install synyx/graylog2
+    puppet module install graylog2/graylog2
 
 ### Manual installation
 
@@ -34,7 +34,7 @@ This module depends on:
 So all repositories have to be checked out:
 
 ```bash
-git clone https://github.com/synyx/puppet-graylog2.git modules/graylog2
+git clone https://github.com/Graylog2/graylog2-puppet.git modules/graylog2
 git clone https://github.com/puppetlabs/puppetlabs-apt.git modules/apt
 git clone https://github.com/puppetlabs/puppetlabs-stdlib.git modules/stdlib
 ```
