@@ -7,7 +7,7 @@ is_master = <%= @is_master %>
 node_id_file = <%= @node_id_file %>
 
 # You MUST set a secret to secure/pepper the stored user passwords here. Use at least 64 characters.
-# Generate one by using for example: pwgen -s 96
+# Generate one by using for example: pwgen -N 1 -s 96
 password_secret = <%= @password_secret %>
 # the default root user is named 'admin'
 root_username = <%= @root_username %>
@@ -24,8 +24,8 @@ plugin_dir = <%= @plugin_dir %>
 
 # REST API listen URI. Must be reachable by other graylog2-server nodes if you run a cluster.
 rest_listen_uri = <%= @rest_listen_uri %>
-# REST API transport address. Defaults to first non-loopback IPv4 system address and port 12900.
-# This will be promoted in the cluster discovery APIs and other nodes may try to connect on this
+# REST API transport address. Defaults to the value of rest_listen_uri. Exception: If rest_listen_uri
+# is set to a wildcard IP address (0.0.0.0) the first non-loopback IPv4 system address is used.
 # address. (see rest_listen_uri)
 rest_transport_uri = <%= @rest_transport_uri %>
 
@@ -38,14 +38,19 @@ rest_enable_cors = <%= @rest_enable_cors %>
 # overall round trip times. This is disabled by default. Uncomment the next line to enable it.
 rest_enable_gzip = <%= @rest_enable_gzip %>
 
-# Embedded elasticsearch configuration file
+# Embedded Elasticsearch configuration file
 # pay attention to the working directory of the server, maybe use an absolute path here
 #elasticsearch_config_file = /etc/graylog2-elasticsearch.yml
 <% if @elasticsearch_config_file %>
 elasticsearch_config_file = <%= @elasticsearch_config_file %>
 <% end %>
 
+# (Approximate) maximum number of documents in an Elasticsearch index before a new index
+# is being created, also see no_retention and elasticsearch_max_number_of_indices.
 elasticsearch_max_docs_per_index = <%= @elasticsearch_max_docs_per_index %>
+
+# Disable message retention on this node, i. e. disable Elasticsearch index rotation.
+#no_retention = false
 
 # How many indices do you want to keep?
 # elasticsearch_max_number_of_indices*elasticsearch_max_docs_per_index=total number of messages in your setup
@@ -57,10 +62,11 @@ elasticsearch_max_number_of_indices = <%= @elasticsearch_max_number_of_indices %
 #   - close # Closes the index and hides it from the system. Can be re-opened later.
 retention_strategy = <%= @retention_strategy %>
 
-# How many ElasticSearch shards and replicas should be used per index? Note that this only applies to newly created indices.
+# How many Elasticsearch shards and replicas should be used per index? Note that this only applies to newly created indices.
 elasticsearch_shards = <%= @elasticsearch_shards %>
 elasticsearch_replicas = <%= @elasticsearch_replicas %>
 
+# Prefix for all Elasticsearch indices and index aliases managed by Graylog2.
 elasticsearch_index_prefix = <%= @elasticsearch_index_prefix %>
 
 # Do you want to allow searches with leading wildcards? This can be extremely resource hungry and should only
@@ -68,12 +74,12 @@ elasticsearch_index_prefix = <%= @elasticsearch_index_prefix %>
 allow_leading_wildcard_searches = <%= @allow_leading_wildcard_searches %>
 
 # Do you want to allow searches to be highlighted? Depending on the size of your messages this can be memory hungry and
-# should only be enabled after making sure your elasticsearch cluster has enough memory.
+# should only be enabled after making sure your Elasticsearch cluster has enough memory.
 allow_highlighting = <%= @allow_highlighting %>
 
 # settings to be passed to elasticsearch's client (overriding those in the provided elasticsearch_config_file)
 # all these
-# this must be the same as for your elasticsearch cluster
+# this must be the same as for your Elasticsearch cluster
 #elasticsearch_cluster_name = graylog2
 
 # you could also leave this out, but makes it easier to identify the graylog2 client instance
@@ -83,7 +89,7 @@ allow_highlighting = <%= @allow_highlighting %>
 #elasticsearch_node_master = false
 #elasticsearch_node_data = false
 
-# use a different port if you run multiple elasticsearch nodes on one machine
+# use a different port if you run multiple Elasticsearch nodes on one machine
 #elasticsearch_transport_tcp_port = 9350
 <% if @elasticsearch_transport_tcp_port %>
 elasticsearch_transport_tcp_port = <%= @elasticsearch_transport_tcp_port %>
@@ -95,16 +101,20 @@ elasticsearch_transport_tcp_port = <%= @elasticsearch_transport_tcp_port %>
 <% if @elasticsearch_discovery_zen_ping_multicast_enabled %>
 elasticsearch_discovery_zen_ping_multicast_enabled = <%= @elasticsearch_discovery_zen_ping_multicast_enabled %>
 <% end %>
-
 #elasticsearch_discovery_zen_ping_unicast_hosts = 192.168.1.203:9300
 <% if @elasticsearch_discovery_zen_ping_unicast_hosts %>
 elasticsearch_discovery_zen_ping_unicast_hosts = <%= @elasticsearch_discovery_zen_ping_unicast_hosts %>
 <% end %>
 
-# the following settings allow to change the bind addresses for the elasticsearch client in graylog2
-# these settings are empty by default, letting elasticsearch choose automatically,
+# Change the following setting if you are running into problems with timeouts during Elasticsearch cluster discovery.
+# The setting is specified in milliseconds, the default is 5000ms (5 seconds).
+# elasticsearch_cluster_discovery_timeout = 5000
+
+# the following settings allow to change the bind addresses for the Elasticsearch client in graylog2
+# these settings are empty by default, letting Elasticsearch choose automatically,
 # override them here or in the 'elasticsearch_config_file' if you need to bind to a special address
-# refer to http://www.elasticsearch.org/guide/en/elasticsearch/reference/0.90/modules-network.html for special values here
+# refer to http://www.elasticsearch.org/guide/en/elasticsearch/reference/0.90/modules-network.html
+# for special values here
 <% if @elasticsearch_network_host %>
 elasticsearch_network_host = <%= @elasticsearch_network_host %>
 <% else %>
@@ -125,15 +135,15 @@ elasticsearch_network_publish_host = <%= @elasticsearch_network_publish_host %>
 
 # Analyzer (tokenizer) to use for message and full_message field. The "standard" filter usually is a good idea.
 # All supported analyzers are: standard, simple, whitespace, stop, keyword, pattern, language, snowball, custom
-# ElasticSearch documentation: http://www.elasticsearch.org/guide/reference/index-modules/analysis/
+# Elasticsearch documentation: http://www.elasticsearch.org/guide/reference/index-modules/analysis/
 # Note that this setting only takes effect on newly created indices.
 elasticsearch_analyzer = <%= @elasticsearch_analyzer %>
 
-# Batch size for all outputs. This is the maximum (!) number of messages an output module will get at once.
-# For example, if this is set to 5000 (default), the ElasticSearch Output will not index more than 5000 messages
-# at once. After that index operation is performed, the next batch will be indexed. If there is only 1 message
-# waiting, it will only index that single message. It is important to raise this parameter if you send in so
-# many messages that it is not enough to index 5000 messages at once. (Only at *really* high message rates)
+# Batch size for the Elasticsearch output. This is the maximum (!) number of messages the Elasticsearch output
+# module will get at once and write to Elasticsearch in a batch call. If the configured batch size has not been
+# reached within output_flush_interval seconds, everything that is available will be flushed at once. Remember
+# that every outputbuffer processor manages its own batch and performs its own batch write calls.
+# ("outputbuffer_processors" variable)
 output_batch_size = <%= @output_batch_size %>
 
 # The number of parallel running processors.
@@ -199,7 +209,7 @@ mongodb_threads_allowed_to_block_multiplier = <%= @mongodb_threads_allowed_to_bl
 
 # Drools Rule File (Use to rewrite incoming log messages)
 # See: http://support.torch.sh/help/kb/graylog2-server/custom-message-rewritingprocessing
-# rules_file = /etc/graylog2.drl
+#rules_file = /etc/graylog2.drl
 
 # Email transport
 transport_email_enabled = <%= @transport_email_enabled %>
@@ -219,12 +229,12 @@ transport_email_from_email = <%= @transport_email_from_email %>
 <% if @transport_email_web_interface_url %>
 transport_email_web_interface_url = <%= @transport_email_web_interface_url %>
 <% else %>
-# transport_email_web_interface_url = https://graylog2.example.com
+#transport_email_web_interface_url = https://graylog2.example.com
 <% end %>
 
 # HTTP proxy for outgoing HTTP calls
 <% if @http_proxy_uri %>
 http_proxy_uri = <%= @http_proxy_uri %>
 <% else %>
-#http_proxy_uri = 
+#http_proxy_uri =
 <% end %>
