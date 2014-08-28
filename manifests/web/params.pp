@@ -47,8 +47,8 @@ class graylog2::web::params {
   }
 
   $daemon_username = $::osfamily ? {
-    'Debian' => '_graylog2',
-    'Redhat' => 'graylog2',
+    'Debian' => 'graylog2-web',
+    'Redhat' => 'graylog2-web',
     default  => fail("${::osfamily} is not supported by ${module_name}")
   }
 
