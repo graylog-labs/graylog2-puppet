@@ -19,16 +19,16 @@ Vagrant.configure('2') do |config|
     end
   end
 
-  config.vm.define 'ubuntu1204' do |machine|
-    machine.vm.box = 'box-cutter/ubuntu1204'
-    machine.vm.network 'private_network', ip: '10.10.0.12'
-    machine.vm.network "forwarded_port", guest: 9000, host: 9012
-
-    machine.vm.provision 'shell' do |shell|
-      shell.path = 'development/vagrant/provision-client.sh'
-      shell.args = ['apt']
-    end
-  end
+  #config.vm.define 'ubuntu1204' do |machine|
+  #  machine.vm.box = 'box-cutter/ubuntu1204'
+  #  machine.vm.network 'private_network', ip: '10.10.0.12'
+  #  machine.vm.network "forwarded_port", guest: 9000, host: 9012
+  #
+  #  machine.vm.provision 'shell' do |shell|
+  #    shell.path = 'development/vagrant/provision-client.sh'
+  #    shell.args = ['apt']
+  #  end
+  #end
 
   config.vm.define 'debian7' do |machine|
     machine.vm.box = 'box-cutter/debian75'
