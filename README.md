@@ -96,7 +96,9 @@ Authors
 Credits
 -------
 
-To the package maintainers:
+To the community package maintainers. (The [official Graylog2 packages](http://graylog2.org/resources/documentation/general/packages)
+are used now.)
+
 * [@hggh](https://github.com/hggh) for providing debs
 * [@jaxxstorm](https://github.com/jaxxstorm) for providing rpms
 
