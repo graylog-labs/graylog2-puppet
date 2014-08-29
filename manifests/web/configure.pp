@@ -15,7 +15,6 @@ class graylog2::web::configure (
   $application_secret,
   $timezone = undef,
   $field_list_limit,
-  $run,
   $http_address,
   $http_port,
 ) {
