@@ -97,6 +97,7 @@ Authors
 * Johannes Graf ([@grafjo](https://github.com/grafjo))
 * Jonathan Buch ([@BuJo](https://github.com/BuJo))
 * Sascha Rüssel ([@zivis](https://github.com/zivis))
+* Bernd Ahlers ([@bernd](https://github.com/bernd))
 
 Credits
 -------
