@@ -16,10 +16,11 @@ application.secret="<%= @application_secret %>"
 # Web interface timezone
 # Graylog2 stores all timestamps in UTC. To properly display times, set the default timezone of the interface.
 # If you leave this out, Graylog2 will pick your system default as the timezone. Usually you will want to configure it explicitly.
-# timezone="Europe/Berlin"
 <% if @timezone %>
 # Ping interval for Mongo monitoring server.
 timezone=<%= @timezone %>
+<% else %>
+#timezone="Europe/Berlin"
 <% end %>
 
 # Message field limit
