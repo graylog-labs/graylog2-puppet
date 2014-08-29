@@ -1,4 +1,4 @@
-graylog2
+Graylog2
 ========
 
 [![Build Status](https://travis-ci.org/Graylog2/puppet.png)](https://travis-ci.org/Graylog2/puppet)
@@ -21,7 +21,7 @@ Table of Contents
 Overview
 --------
 
-This module manages a [graylog2](http://www.graylog2.org) setup including the
+This module manages a [Graylog2](http://www.graylog2.org) setup including the
 [server](https://github.com/Graylog2/graylog2-server) and the
 [web-interface](https://github.com/Graylog2/graylog2-web-interface).
 
@@ -103,5 +103,5 @@ To the package maintainers:
 License
 -------
 
-puppet-graylog2 is released under the MIT License. See the bundled LICENSE file
+graylog2-puppet is released under the MIT License. See the bundled LICENSE file
 for details.
