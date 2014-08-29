@@ -26,7 +26,7 @@ class graylog2::web::params {
 
   $service_enable = true
 
-  $graylog2_server_uris = ["http://${::ipaddress_eth0}:12900/"]
+  $graylog2_server_uris = ["http://127.0.0.1:12900/"]
 
   $application_secret = ''
 
