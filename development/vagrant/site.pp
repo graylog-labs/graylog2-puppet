@@ -1,9 +1,13 @@
 node default {
   $es_cluster_name = 'gl2'
+  $es_version = $::osfamily ? {
+    'Debian' => '0.90.10',
+    'Redhat' => '0.90.10-1',
+  }
 
   # Dependencies
   class { 'elasticsearch':
-    version      => '0.90.10',
+    version      => $es_version,
     manage_repo  => true,
     repo_version => '0.90',
     java_install => true,
@@ -31,6 +35,12 @@ node default {
     require                    => [
       Elasticsearch::Instance['esgl2'],
       Class['mongodb::server'],
+      Class['graylog2::repo'],
     ],
+  }
+
+  class {'graylog2::web':
+    application_secret => '16BKgz0Qelg6eFeJYh8lc4hWU1jJJmAgHlPEx6qkBa2cQQTUG300FYlPOEvXsOV4smzRtnwjHAKykE3NIWXbpL7yGLN7V2P2',
+    require            => Class['graylog2::server'],
   }
 }
