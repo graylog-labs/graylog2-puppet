@@ -17,3 +17,8 @@ before_install:
 script: "rake"
 
 gemfile: Gemfile
+
+matrix:
+  exclude:
+    - rvm: 2.1.0
+      env: PUPPET_VERSION="~> 2.7.0"
