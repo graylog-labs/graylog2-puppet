@@ -74,13 +74,13 @@ module does **not** setup Elasticsearch and MongoDB so make sure to have those
 installed as well!
 
 ```puppet
-class {'graylog2::repo': version => '0.21'}
-
+class {'graylog2::repo':
+  version => '0.21'
+} ->
 class {'graylog2::server':
   password_secret    => 'veryStrongSecret',
   root_password_sha2 => 'sha256PasswordHash'
-}
-
+} ->
 class {'graylog2::web':
   application_secret => 'veryStrongSecret',
 }
