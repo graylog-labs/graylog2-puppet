@@ -27,7 +27,7 @@ end
 
 task :default => [:syntax, :lint, :spec]
 
-task :build do
+task :build => :default do
   # There is no way to exclude files with the module tools. So we need this
   # gross hack.
   sh "rm -rf build && git clone $PWD build"
