@@ -2,6 +2,7 @@ require 'rake'
 require 'rspec/core/rake_task'
 require 'puppet-syntax/tasks/puppet-syntax'
 require 'puppet-lint/tasks/puppet-lint'
+require 'puppet_blacksmith/rake_tasks'
 
 PuppetLint.configuration.relative = true
 PuppetLint.configuration.fail_on_warnings = true
