@@ -10,13 +10,13 @@
 #
 class graylog2::web::service (
   $service_name,
-  $manage_service_ensure,
-  $manage_service_enable,
+  $service_ensure,
+  $service_enable,
 ) {
 
   service { $service_name:
-    ensure     => $manage_service_ensure,
-    enable     => $manage_service_enable,
+    ensure     => $service_ensure,
+    enable     => $service_enable,
     hasstatus  => true,
     hasrestart => true,
   }

@@ -22,9 +22,9 @@ class graylog2::web::params {
     default  => fail("${::osfamily} is not supported by ${module_name}")
   }
 
-  $manage_service_ensure = 'running'
+  $service_ensure = 'running'
 
-  $manage_service_enable = true
+  $service_enable = true
 
   $graylog2_server_uris = ["http://${::ipaddress_eth0}:12900/"]
 
