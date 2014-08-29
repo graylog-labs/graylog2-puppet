@@ -1,6 +1,11 @@
 Graylog2 Puppet Module Changes
 ==============================
 
+## 0.6.1 (2014-08-29)
+
+* Fix puppet-lint warnings.
+* README updates to clarify some things.
+
 ## 0.6.0 (2014-08-29)
 
 * Remove default for the `root_password_sha2` parameter. This needs to be set
