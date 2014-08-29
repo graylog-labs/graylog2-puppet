@@ -3,9 +3,10 @@ node default {
 
   # Dependencies
   class { 'elasticsearch':
-    version => '0.90.10',
+    version      => '0.90.10',
     manage_repo  => true,
     repo_version => '0.90',
+    java_install => true,
   }
 
   elasticsearch::instance { 'esgl2':
