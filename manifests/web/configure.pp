@@ -20,14 +20,6 @@ class graylog2::web::configure (
   $http_port,
 ) {
 
-  file { '/etc/default/graylog2-web':
-    ensure  => file,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
-    content => template("${module_name}/web_default.erb"),
-  }
-
   ensure_resource('file', '/etc/graylog2', {
     ensure => directory,
     owner  => $daemon_username,

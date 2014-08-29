@@ -34,8 +34,6 @@ class graylog2::web::params {
 
   $field_list_limit = 100
 
-  $run = 'yes'
-
   $http_address = '0.0.0.0'
 
   $http_port = '9000'
