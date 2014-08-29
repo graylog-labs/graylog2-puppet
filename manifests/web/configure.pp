@@ -38,11 +38,11 @@ class graylog2::web::configure (
 
   # This is required and there is no default!
   if ! $application_secret {
-    fail("Missing or empty application_secret parameter!")
+    fail('Missing or empty application_secret parameter!')
   }
 
   if size($application_secret) < 64 {
-    fail("The application_secret parameter is too short. (at least 64 characters)!")
+    fail('The application_secret parameter is too short. (at least 64 characters)!')
   }
 
   ensure_resource('file', '/etc/graylog2/web', {
