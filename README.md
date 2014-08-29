@@ -1,7 +1,7 @@
 Graylog2
 ========
 
-[![Build Status](https://travis-ci.org/Graylog2/puppet.png)](https://travis-ci.org/Graylog2/puppet)
+[![Build Status](https://travis-ci.org/Graylog2/graylog2-puppet.png)](https://travis-ci.org/Graylog2/graylog2-puppet)
 
 
 Table of Contents
