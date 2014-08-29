@@ -25,7 +25,7 @@ class graylog2::server::service (
       enable     => $service_enable,
       hasstatus  => true,
       hasrestart => true,
-      provider   => 'upstart',
+      provider   => $service_provider,
     }
   } else {
     service { $service_name:
