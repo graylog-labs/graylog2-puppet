@@ -8,7 +8,6 @@ This module manages a [graylog2](http://www.graylog2.org) setup including the [s
 
 Supported plattforms:
 * Debian 7
-* Ubuntu 12.04
 * Ubuntu 14.04
 * CentOS 6.5
 
