@@ -10,7 +10,7 @@ graylog2-server.uris="<%= @graylog2_server_uris.join(",") %>"
 # ~~~~~
 # The secret key is used to secure cryptographics functions. Set this to a long and randomly generated string.
 # If you deploy your application to several instances be sure to use the same key!
-# Generate for example with: pwgen -s 96
+# Generate for example with: pwgen -N 1 -s 96
 application.secret="<%= @application_secret %>"
 
 # Web interface timezone
@@ -20,7 +20,7 @@ application.secret="<%= @application_secret %>"
 # Ping interval for Mongo monitoring server.
 timezone=<%= @timezone %>
 <% else %>
-#timezone="Europe/Berlin"
+# timezone="Europe/Berlin"
 <% end %>
 
 # Message field limit
@@ -28,3 +28,13 @@ timezone=<%= @timezone %>
 # limit of message fields is 100. Set it to 0 if you always want to get all fields. They are for example used in the
 # search result sidebar or for autocompletion of field names.
 field_list_limit=<%= @field_list_limit %>
+
+# Use this to run Graylog2 with a path prefix
+<% if @http_path_prefix %>
+application.context=<%= @http_path_prefix %>
+<% else %>
+#application.context=/graylog2
+<% end %>
+
+# You usually do not want to change this.
+application.global=lib.Global

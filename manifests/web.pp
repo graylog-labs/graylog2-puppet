@@ -18,6 +18,7 @@ class graylog2::web (
   $field_list_limit     = $graylog2::web::params::field_list_limit,
   $http_address         = $graylog2::web::params::http_address,
   $http_port            = $graylog2::web::params::http_port,
+  $http_path_prefix     = $graylog2::web::params::http_path_prefix,
   $config_file          = $graylog2::web::params::config_file,
   $daemon_username      = $graylog2::web::params::daemon_username,
 
@@ -35,6 +36,7 @@ class graylog2::web (
     field_list_limit     => $field_list_limit,
     http_address         => $http_address,
     http_port            => $http_port,
+    http_path_prefix     => $http_path_prefix,
     config_file          => $config_file,
     daemon_username      => $daemon_username,
   } ~>

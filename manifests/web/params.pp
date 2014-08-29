@@ -10,17 +10,21 @@
 #
 class graylog2::web::params {
 
-  $package_name = $::osfamily ? {
-    /(Debian|RedHat)/ => 'graylog2-web',
-    default  => fail("${::osfamily} is not supported by ${module_name}")
+  # OS specific settings.
+  case $::osfamily {
+    'Debian', 'RedHat': {
+      # Nothing yet.
+    }
+    default: {
+      fail("${::osfamily} is not supported by ${module_name}")
+    }
   }
+
+  $package_name = 'graylog2-web'
 
   $package_version = 'installed'
 
-  $service_name  = $::osfamily ? {
-    /(Debian|RedHat)/ => 'graylog2-web',
-    default  => fail("${::osfamily} is not supported by ${module_name}")
-  }
+  $service_name  = 'graylog2-web'
 
   $service_ensure = 'running'
 
@@ -28,7 +32,7 @@ class graylog2::web::params {
 
   $graylog2_server_uris = ["http://127.0.0.1:12900/"]
 
-  $application_secret = ''
+  $application_secret = undef
 
   $timezone = undef
 
@@ -38,16 +42,10 @@ class graylog2::web::params {
 
   $http_port = '9000'
 
-  $config_file = $::osfamily ? {
-    'Debian' => '/etc/graylog2/web/graylog2-web-interface.conf',
-    'RedHat' => '/etc/graylog2/web.conf',
-    default  => fail("${::osfamily} is not supported by ${module_name}")
-  }
+  $http_path_prefix = undef
 
-  $daemon_username = $::osfamily ? {
-    'Debian' => 'graylog2-web',
-    'Redhat' => 'graylog2-web',
-    default  => fail("${::osfamily} is not supported by ${module_name}")
-  }
+  $config_file = '/etc/graylog2/web/graylog2-web-interface.conf'
+
+  $daemon_username = 'graylog2-web'
 
 }

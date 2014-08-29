@@ -17,9 +17,35 @@ class graylog2::web::configure (
   $field_list_limit,
   $http_address,
   $http_port,
+  $http_path_prefix,
 ) {
 
-  ensure_resource('file', '/etc/graylog2', {
+  validate_array(
+    $graylog2_server_uris,
+  )
+
+  validate_string(
+    $daemon_username,
+    $application_secret,
+    $field_list_limit,
+    $http_address,
+    $http_port,
+  )
+
+  validate_absolute_path(
+    $config_file,
+  )
+
+  # This is required and there is no default!
+  if ! $application_secret {
+    fail("Missing or empty application_secret parameter!")
+  }
+
+  if size($application_secret) < 64 {
+    fail("The application_secret parameter is too short. (at least 64 characters)!")
+  }
+
+  ensure_resource('file', '/etc/graylog2/web', {
     ensure => directory,
     owner  => $daemon_username,
     group  => $daemon_username,
