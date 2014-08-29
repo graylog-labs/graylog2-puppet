@@ -1,30 +1,57 @@
-#puppet-graylog2
+graylog2
+========
 
 [![Build Status](https://travis-ci.org/Graylog2/puppet.png)](https://travis-ci.org/Graylog2/puppet)
 
-##Overview
 
-This module manages a [graylog2](http://www.graylog2.org) setup including the [server](https://github.com/Graylog2/graylog2-server) and the [web-interface](https://github.com/Graylog2/graylog2-web-interface).
+Table of Contents
+-----------------
+
+1. [Overview](#overview)
+1. [Installation](#installation)
+    * [Librarian-Puppet](#librarian-puppet)
+    * [Puppet Module Tool](#puppet-module-tool)
+    * [Manual Installation](#manual-installation)
+1. [Usage](#usage)
+1. [Authors](#authors)
+1. [Credits](#credits)
+1. [License](#license)
+
+
+Overview
+--------
+
+This module manages a [graylog2](http://www.graylog2.org) setup including the
+[server](https://github.com/Graylog2/graylog2-server) and the
+[web-interface](https://github.com/Graylog2/graylog2-web-interface).
 
 Supported plattforms:
 * Debian 7
 * Ubuntu 14.04
 * CentOS 6.5
 
-There is an implicit dependency to java - make sure to setup java properly before using this module!
 
-## Installation
+Installation
+------------
 
+There is an implicit dependency to Elasticsearch and MongoDB - make sure to
+set those up properly before using this module! You can use existing Puppet
+modules to do that.
 
-### Librarian-puppet
+* [elasticsearch/elasticsearch](https://forge.puppetlabs.com/elasticsearch/elasticsearch)
+* [puppetlabs/mongodb](https://forge.puppetlabs.com/puppetlabs/mongodb)
 
-    mod 'graylog2/graylog2', '0.5.1'
+### Librarian-Puppet
 
-### Puppet Module Tool:
+    mod 'graylog2/graylog2', 'x.x.x'
+
+Check for the latest version!
+
+### Puppet Module Tool
 
     puppet module install graylog2/graylog2
 
-### Manual installation
+### Manual Installation
 
 This module depends on:
 * [puppetlabs/apt](https://github.com/puppetlabs/puppetlabs-apt)
@@ -38,9 +65,13 @@ git clone https://github.com/puppetlabs/puppetlabs-apt.git modules/apt
 git clone https://github.com/puppetlabs/puppetlabs-stdlib.git modules/stdlib
 ```
 
-##Usage
 
-A graylog2 example including the server and the webinterface component
+Usage
+-----
+
+A Graylog2 example including the server and the web-interface component. The
+module does **not** setup Elasticsearch and MongoDB so make sure to have those
+installed as well!
 
 ```puppet
 class {'graylog2::repo': version => '0.21'}
@@ -55,20 +86,22 @@ class {'graylog2::web':
 }
 ```
 
-
-## Authors
+Authors
+-------
 
 * Johannes Graf ([@grafjo](https://github.com/grafjo))
 * Jonathan Buch ([@BuJo](https://github.com/BuJo))
 * Sascha Rüssel ([@zivis](https://github.com/zivis))
 
-## Credits
+Credits
+-------
 
 To the package maintainers:
 * [@hggh](https://github.com/hggh) for providing debs
 * [@jaxxstorm](https://github.com/jaxxstorm) for providing rpms
 
-## License
+License
+-------
 
 puppet-graylog2 is released under the MIT License. See the bundled LICENSE file
 for details.
