@@ -51,6 +51,30 @@ class graylog2::web::configure (
     group  => $daemon_username,
   })
 
+  case $::osfamily {
+    'Debian': {
+      file { '/etc/default/graylog2-web':
+        ensure  => present,
+        owner   => 'root',
+        group   => 'root',
+        mode    => '0644',
+        content => template("${module_name}/web.default.erb"),
+      }
+    }
+    'RedHat': {
+      file { '/etc/sysconfig/graylog2-web':
+        ensure  => present,
+        owner   => 'root',
+        group   => 'root',
+        mode    => '0644',
+        content => template("${module_name}/web.sysconfig.erb"),
+      }
+    }
+    default: {
+      fail("${::osfamily} is not supported by ${module_name}")
+    }
+  }
+
   file {$config_file:
     ensure  => file,
     owner   => $daemon_username,
