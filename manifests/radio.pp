@@ -80,6 +80,6 @@ class graylog2::radio (
     service_ensure => $service_ensure,
     service_enable => $service_enable,
   } ->
-  anchor {'graylog2::server::end': }
+  anchor {'graylog2::radio::end': }
 
 }
