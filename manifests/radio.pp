@@ -37,7 +37,7 @@ class graylog2::radio (
   $java_opts                 = $graylog2::radio::params::java_opts,
   $extra_args                = $graylog2::radio::params::extra_args,
   $template_file             = $graylog2::radio::params::template_file,
-  $template_config_content   = $graylog2::radio::params::template_config_content,
+  $template_config_file      = $graylog2::radio::params::template_config_file,
 
 
 ) inherits graylog2::radio::params {
