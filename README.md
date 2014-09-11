@@ -91,6 +91,15 @@ class {'graylog2::web':
 }
 ```
 
+Installing graylog2-radio with default settings
+
+```puppet
+class {'graylog2::repo':
+  version => '0.21'
+}->
+class {'graylog2::radio': }
+```
+
 Authors
 -------
 
