@@ -1,6 +1,12 @@
 Graylog2 Puppet Module Changes
 ==============================
 
+## 0.7.0 (2014-09-16)
+
+* Add support for managing graylog2-radio. (#3)
+* Compatibility fixes for Puppet 2.7.x. (#4)
+* Add `command_wrapper`, `java_opts` and `extra_args` options. (#1, #3)
+
 ## 0.6.1 (2014-08-29)
 
 * Fix puppet-lint warnings.
