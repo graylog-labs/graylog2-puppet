@@ -43,4 +43,9 @@ node default {
     application_secret => '16BKgz0Qelg6eFeJYh8lc4hWU1jJJmAgHlPEx6qkBa2cQQTUG300FYlPOEvXsOV4smzRtnwjHAKykE3NIWXbpL7yGLN7V2P2',
     require            => Class['graylog2::server'],
   }
+
+  class {'graylog2::radio': }
+
+  # Example workaround for dependency cycle.
+  #Exec['apt_update'] -> Package <| title != 'apt-transport-https' |>
 }
