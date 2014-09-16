@@ -15,6 +15,7 @@ class graylog2::server::configure (
   $allow_highlighting,
   $allow_leading_wildcard_searches,
   $async_eventbus_processors,
+  $command_wrapper,
   $dead_letters_enabled,
   $elasticsearch_analyzer,
   $elasticsearch_cluster_discovery_timeout,
@@ -131,6 +132,7 @@ class graylog2::server::configure (
     $daemon_username,
 
     $async_eventbus_processors,
+    $command_wrapper,
     $elasticsearch_analyzer,
     $elasticsearch_cluster_discovery_timeout,
     $elasticsearch_cluster_name,

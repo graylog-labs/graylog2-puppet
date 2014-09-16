@@ -34,6 +34,8 @@ class graylog2::web::params {
 
   $application_secret = undef
 
+  $command_wrapper = ''
+
   $timezone = undef
 
   $field_list_limit = 100

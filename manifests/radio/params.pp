@@ -41,6 +41,7 @@ class graylog2::radio::params {
   $amqp_broker_vhost = '/'
   $amqp_broker_username = 'guest'
   $amqp_broker_password = 'guest'
+  $command_wrapper = ''
   $kafka_brokers = []
   $kafka_producer_type = 'sync'
   $kafka_batch_size = 200

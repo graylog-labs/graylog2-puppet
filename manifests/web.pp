@@ -14,6 +14,7 @@ class graylog2::web (
   $service_enable       = $graylog2::web::params::service_enable,
   $graylog2_server_uris = $graylog2::web::params::graylog2_server_uris,
   $application_secret   = $graylog2::web::params::application_secret,
+  $command_wrapper      = $graylog2::web::params::command_wrapper,
   $timezone             = $graylog2::web::params::timezone,
   $field_list_limit     = $graylog2::web::params::field_list_limit,
   $http_address         = $graylog2::web::params::http_address,
@@ -32,6 +33,7 @@ class graylog2::web (
   class {'graylog2::web::configure':
     graylog2_server_uris => $graylog2_server_uris,
     application_secret   => $application_secret,
+    command_wrapper      => $command_wrapper,
     timezone             => $timezone,
     field_list_limit     => $field_list_limit,
     http_address         => $http_address,

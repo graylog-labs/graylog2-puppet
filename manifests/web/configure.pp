@@ -13,6 +13,7 @@ class graylog2::web::configure (
   $daemon_username,
   $graylog2_server_uris,
   $application_secret,
+  $command_wrapper,
   $timezone = undef,
   $field_list_limit,
   $http_address,
@@ -27,6 +28,7 @@ class graylog2::web::configure (
   validate_string(
     $daemon_username,
     $application_secret,
+    $command_wrapper,
     $field_list_limit,
     $http_address,
     $http_port,

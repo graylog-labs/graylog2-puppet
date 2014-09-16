@@ -34,6 +34,7 @@ class graylog2::server::params {
   $allow_highlighting = false
   $allow_leading_wildcard_searches = false
   $async_eventbus_processors = 2
+  $command_wrapper = ''
   $dead_letters_enabled = false
   $elasticsearch_analyzer = 'standard'
   $elasticsearch_cluster_discovery_timeout = 5000
