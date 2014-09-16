@@ -42,16 +42,16 @@ class graylog2::radio::params {
   $amqp_broker_username = 'guest'
   $amqp_broker_password = 'guest'
   $kafka_brokers = []
-  $kafka_producer_type = undef
-  $kafka_batch_size = undef
-  $kafka_batch_max_wait_ms = undef
-  $kafka_required_acks = undef
+  $kafka_producer_type = 'sync'
+  $kafka_batch_size = 200
+  $kafka_batch_max_wait_ms = 250
+  $kafka_required_acks = 0
   $processbuffer_processors = 5
   $processor_wait_strategy = 'blocking'
   $ring_size = 1024
-  $input_cache_max_size = undef
-  $java_opts = undef
-  $extra_args = undef
+  $input_cache_max_size = 0
+  $java_opts = ''
+  $extra_args = ''
   $template_file = ''
   $template_config_file = ''
 }
