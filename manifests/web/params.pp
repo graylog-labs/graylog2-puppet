@@ -42,7 +42,7 @@ class graylog2::web::params {
 
   $http_port = '9000'
 
-  $http_path_prefix = undef
+  $http_path_prefix = false
 
   $config_file = '/etc/graylog2/web/graylog2-web-interface.conf'
 
