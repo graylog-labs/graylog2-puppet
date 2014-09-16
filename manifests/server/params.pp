@@ -56,11 +56,13 @@ class graylog2::server::params {
   $elasticsearch_shards = 4
   $elasticsearch_transport_tcp_port = 9350
   $enable_metrics_collection = false
+  $extra_args = ''
   $groovy_shell_enable = false
   $groovy_shell_port = 6789
   $http_proxy_uri = false
   $input_cache_max_size = 0
   $is_master = true
+  $java_opts = ''
   $lb_recognition_period_seconds = 3
   $ldap_connection_timeout = 2000
   $message_cache_commit_interval = 1000

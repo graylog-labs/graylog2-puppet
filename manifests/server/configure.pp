@@ -37,11 +37,13 @@ class graylog2::server::configure (
   $elasticsearch_shards,
   $elasticsearch_transport_tcp_port,
   $enable_metrics_collection,
+  $extra_args,
   $groovy_shell_enable,
   $groovy_shell_port,
   $http_proxy_uri,
   $input_cache_max_size,
   $is_master,
+  $java_opts,
   $lb_recognition_period_seconds,
   $ldap_connection_timeout,
   $message_cache_commit_interval,
@@ -225,4 +227,27 @@ class graylog2::server::configure (
     content => template("${module_name}/server.conf.erb"),
   }
 
+  case $::osfamily {
+    'Debian': {
+      file { '/etc/default/graylog2-server':
+        ensure  => present,
+        owner   => 'root',
+        group   => 'root',
+        mode    => '0644',
+        content => template("${module_name}/server.default.erb"),
+      }
+    }
+    'RedHat': {
+      file { '/etc/sysconfig/graylog2-server':
+        ensure  => present,
+        owner   => 'root',
+        group   => 'root',
+        mode    => '0644',
+        content => template("${module_name}/server.sysconfig.erb"),
+        }
+      }
+    default: {
+      fail("${::osfamily} is not supported by ${module_name}")
+    }
+  }
 }
