@@ -1,6 +1,12 @@
 Graylog2 Puppet Module Changes
 ==============================
 
+## 0.8.0 (2014-11-19)
+
+* Add timeout option for graylog2-web-interface.
+* Switch repository URLs to HTTPS.
+* Add support for graylog2-stream-dashboard. (#5)
+
 ## 0.7.0 (2014-09-16)
 
 * Add support for managing graylog2-radio. (#3)
