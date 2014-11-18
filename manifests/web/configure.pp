@@ -19,6 +19,7 @@ class graylog2::web::configure (
   $http_address,
   $http_port,
   $http_path_prefix,
+  $timeout,
 ) {
 
   validate_array(

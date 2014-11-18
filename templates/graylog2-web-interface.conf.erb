@@ -38,3 +38,7 @@ application.context=<%= @http_path_prefix %>
 
 # You usually do not want to change this.
 application.global=lib.Global
+
+<% if @timeout %>
+timeout.DEFAULT=<%= @timeout %>
+<% end %>

@@ -22,6 +22,7 @@ class graylog2::web (
   $http_path_prefix     = $graylog2::web::params::http_path_prefix,
   $config_file          = $graylog2::web::params::config_file,
   $daemon_username      = $graylog2::web::params::daemon_username,
+  $timeout              = $graylog2::web::params::timeout,
 
 ) inherits graylog2::web::params {
 
@@ -41,6 +42,7 @@ class graylog2::web (
     http_path_prefix     => $http_path_prefix,
     config_file          => $config_file,
     daemon_username      => $daemon_username,
+    timeout              => $timeout,
   } ~>
   class {'graylog2::web::service':
     service_name   => $graylog2::web::params::service_name,

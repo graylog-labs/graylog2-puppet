@@ -50,4 +50,6 @@ class graylog2::web::params {
 
   $daemon_username = 'graylog2-web'
 
+  $timeout = false
+
 }
