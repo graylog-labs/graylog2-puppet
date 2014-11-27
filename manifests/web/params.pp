@@ -38,7 +38,7 @@ class graylog2::web::params {
 
   $timezone = undef
 
-  $field_list_limit = 100
+  $field_list_limit = '100'
 
   $http_address = '0.0.0.0'
 
