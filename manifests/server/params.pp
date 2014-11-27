@@ -40,7 +40,7 @@ class graylog2::server::params {
   $elasticsearch_cluster_discovery_timeout = '5000'
   $elasticsearch_cluster_name = 'graylog2'
   $elasticsearch_config_file = false
-  $elasticsearch_discovery_initial_state_timeout = 3s
+  $elasticsearch_discovery_initial_state_timeout = '3s'
   $elasticsearch_discovery_zen_ping_multicast_enabled = true
   $elasticsearch_discovery_zen_ping_unicast_hosts = false
   $elasticsearch_http_enabled = false
