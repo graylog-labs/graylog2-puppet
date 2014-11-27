@@ -75,7 +75,7 @@ class graylog2::server::params {
   $mongodb_password = false
   $mongodb_port = '27017'
   $mongodb_replica_set = false
-  $mongodb_threads_allowed_to_block_multiplier = 5
+  $mongodb_threads_allowed_to_block_multiplier = '5'
   $mongodb_useauth = false
   $mongodb_user = false
   $node_id_file = '/etc/graylog2/server/node-id'
