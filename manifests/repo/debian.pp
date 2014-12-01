@@ -19,7 +19,7 @@ class graylog2::repo::debian (
   if !defined(Package['apt-transport-https']) {
     ensure_packages(['apt-transport-https'])
   }
-  
+
   if !defined(Apt::Source[$repo_name]) {
     apt::source { $repo_name:
       location    => $baseurl,
@@ -32,13 +32,13 @@ class graylog2::repo::debian (
         Package['apt-transport-https'],
       ],
     }
-  }
 
-  file {'/etc/apt/trusted.gpg.d/graylog2-keyring.gpg':
-    ensure => present,
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0444',
-    source => 'puppet:///modules/graylog2/graylog2-keyring.gpg',
+    file {'/etc/apt/trusted.gpg.d/graylog2-keyring.gpg':
+      ensure => present,
+      owner  => 'root',
+      group  => 'root',
+      mode   => '0444',
+      source => 'puppet:///modules/graylog2/graylog2-keyring.gpg',
+    }
   }
 }
