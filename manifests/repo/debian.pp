@@ -16,8 +16,10 @@ class graylog2::repo::debian (
   $pin
 ) {
 
-  ensure_packages(['apt-transport-https'])
-
+  if !defined(Package['apt-transport-https']) {
+    ensure_packages(['apt-transport-https'])
+  }
+  
   if !defined(Apt::Source[$repo_name]) {
     apt::source { $repo_name:
       location    => $baseurl,
