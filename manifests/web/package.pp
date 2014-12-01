@@ -15,7 +15,6 @@ class graylog2::web::package(
 
   package { $package:
     ensure  => $version,
-    require => Class['graylog2::repo'],
   }
 
 }
