@@ -26,8 +26,10 @@ plugin_dir = <%= @plugin_dir %>
 
 # REST API listen URI. Must be reachable by other graylog2-server nodes if you run a cluster.
 rest_listen_uri = <%= @rest_listen_uri %>
+
 # REST API transport address. Defaults to the value of rest_listen_uri. Exception: If rest_listen_uri
 # is set to a wildcard IP address (0.0.0.0) the first non-loopback IPv4 system address is used.
+# This will be promoted in the cluster discovery APIs and other nodes may try to connect on this
 # address. (see rest_listen_uri)
 rest_transport_uri = <%= @rest_transport_uri %>
 
@@ -40,6 +42,44 @@ rest_enable_cors = <%= @rest_enable_cors %>
 # overall round trip times. This is disabled by default. Uncomment the next line to enable it.
 rest_enable_gzip = <%= @rest_enable_gzip %>
 
+# Enable HTTPS support for the REST API. This secures the communication with the REST API with
+# TLS to prevent request forgery and eavesdropping. This is disabled by default. Uncomment the
+# next line to enable it.
+rest_enable_tls = <%= @rest_enable_tls %>
+
+# The X.509 certificate file to use for securing the REST API.
+<%- if @rest_tls_cert_file -%>
+rest_tls_cert_file = <%= @rest_tls_cert_file %>
+<% else %>
+#rest_tls_cert_file = /path/to/graylog2.crt
+<% end %>
+
+# The private key to use for securing the REST API.
+<%- if @rest_tls_key_file -%>
+rest_tls_key_file = <%= @rest_tls_key_file %>
+<% else %>
+#rest_tls_key_file = /path/to/graylog2.key
+<% end %>
+
+# The password to unlock the private key used for securing the REST API.
+<%- if @rest_tls_key_password -%>
+rest_tls_key_password = <%= @rest_tls_key_password %>
+<% else %>
+#rest_tls_key_password = secret
+<% end %>
+
+# The maximum size of a single HTTP chunk in bytes.
+rest_max_chunk_size = <%= @rest_max_chunk_size %>
+
+# The maximum size of the HTTP request headers in bytes.
+rest_max_header_size = <%= @rest_max_header_size %>
+
+# The maximal length of the initial HTTP/1.1 line in bytes.
+rest_max_initial_line_length = <%= @rest_max_initial_line_length %>
+
+# The size of the thread pool used exclusively for serving the REST API.
+rest_thread_pool_size = <%= @rest_thread_pool_size %>
+
 # Embedded Elasticsearch configuration file
 # pay attention to the working directory of the server, maybe use an absolute path here
 #elasticsearch_config_file = /etc/graylog2-elasticsearch.yml
@@ -49,9 +89,39 @@ elasticsearch_config_file = <%= @elasticsearch_config_file %>
 #elasticsearch_config_file = /etc/graylog2-elasticsearch.yml
 <% end %>
 
+# Graylog2 will use multiple indices to store documents in. You can configured the strategy it uses to determine
+# when to rotate the currently active write index.
+# It supports multiple rotation strategies:
+#   - "count" of messages per index, use elasticsearch_max_docs_per_index below to configure
+#   - "size" per index, use elasticsearch_max_size_per_index below to configure
+# valid values are "count", "size" and "time", default is "count"
+rotation_strategy = <%= @rotation_strategy %>
+
 # (Approximate) maximum number of documents in an Elasticsearch index before a new index
 # is being created, also see no_retention and elasticsearch_max_number_of_indices.
+# Configure this if you used 'rotation_strategy = count' above.
 elasticsearch_max_docs_per_index = <%= @elasticsearch_max_docs_per_index %>
+
+# (Approximate) maximum size in bytes per Elasticsearch index on disk before a new index is being created, also see
+# no_retention and elasticsearch_max_number_of_indices. Default is 1GB.
+# Configure this if you used 'rotation_strategy = size' above.
+elasticsearch_max_size_per_index = <%= @elasticsearch_max_size_per_index %>
+
+# (Approximate) maximum time before a new Elasticsearch index is being created, also see
+# no_retention and elasticsearch_max_number_of_indices. Default is 1 day.
+# Configure this if you used 'rotation_strategy = time' above.
+# Please note that this rotation period does not look at the time specified in the received messages, but is
+# using the real clock value to decide when to rotate the index!
+# Specify the time using a duration and a suffix indicating which unit you want:
+#  1w  = 1 week
+#  1d  = 1 day
+#  12h = 12 hours
+# Permitted suffixes are: d for day, h for hour, m for minute, s for second.
+elasticsearch_max_time_per_index = <%= @elasticsearch_max_time_per_index %>
+
+# Disable checking the version of Elasticsearch for being compatible with this Graylog2 release.
+# WARNING: Using Graylog2 with unsupported and untested versions of Elasticsearch may lead to data loss!
+elasticsearch_disable_version_check = <%= @elasticsearch_disable_version_check %>
 
 # Disable message retention on this node, i. e. disable Elasticsearch index rotation.
 no_retention = <%= @no_retention %>
@@ -185,6 +255,9 @@ processor_wait_strategy = <%= @processor_wait_strategy %>
 # Must be a power of 2. (512, 1024, 2048, ...)
 ring_size = <%= @ring_size %>
 
+# Number of threads used exclusively for dispatching internal events. Default is 2.
+async_eventbus_processors = <%= @async_eventbus_processors %>
+
 # EXPERIMENTAL: Dead Letters
 # Every failed indexing attempt is logged by default and made visible in the web-interface. You can enable
 # the experimental dead letters feature to write every message that was not successfully indexed into the
@@ -306,6 +379,31 @@ message_cache_commit_interval = <%= @message_cache_commit_interval %>
 # The default is 0, which means no upper bound.
 #
 input_cache_max_size = <%= @input_cache_max_size %>
+
+# Disable the optimization of Elasticsearch indices after index cycling. This may take some load from Elasticsearch
+# on heavily used systems with large indices, but it will decrease search performance. The default is to optimize
+# cycled indices.
+disable_index_optimization = <%= @disable_index_optimization %>
+
+# Optimize the index down to <= index_optimization_max_num_segments. A higher number may take some load from Elasticsearch
+# on heavily used systems with large indices, but it will decrease search performance. The default is 1.
+index_optimization_max_num_segments = <%= @index_optimization_max_num_segments %>
+
+# Disable the index range calculation on all open/available indices and only calculate the range for the latest
+# index. This may speed up index cycling on systems with large indices but it might lead to wrong search results
+# in regard to the time range of the messages (i. e. messages within a certain range may not be found). The default
+# is to calculate the time range on all open/available indices.
+disable_index_range_calculation = <%= @disable_index_range_calculation %>
+
+# Disable the output cache used to buffer messages when the backend storage, e. g. Elasticsearch or any other output
+# plugin is too slow to handle the amount of messages being indexed. It is recommended to disable the output cache
+# when using inputs with proper backpressure handling, e. g. Graylog2 radio, AMQP, or Kafka. The default is having
+# the output cache enabled.
+disable_output_cache = <%= @disable_output_cache %>
+
+# The threshold of the garbage collection runs. If GC runs take longer than this threshold, a system notification
+# will be generated to warn the administrator about possible problems with the system. Default is 1 second.
+gc_warning_threshold = <%= @gc_warning_threshold %>
 
 # Connection timeout for a configured LDAP server (e. g. ActiveDirectory) in milliseconds.
 ldap_connection_timeout = <%= @ldap_connection_timeout %>

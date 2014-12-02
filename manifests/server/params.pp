@@ -31,15 +31,20 @@ class graylog2::server::params {
   $daemon_username = 'graylog2'
 
   # Config file variables.
+  $alert_check_interval = '60'
   $allow_highlighting = false
   $allow_leading_wildcard_searches = false
   $async_eventbus_processors = '2'
   $command_wrapper = ''
   $dead_letters_enabled = false
+  $disable_index_optimization = false
+  $disable_index_range_calculation = false
+  $disable_output_cache = false
   $elasticsearch_analyzer = 'standard'
   $elasticsearch_cluster_discovery_timeout = '5000'
   $elasticsearch_cluster_name = 'graylog2'
   $elasticsearch_config_file = false
+  $elasticsearch_disable_version_check = false
   $elasticsearch_discovery_initial_state_timeout = '3s'
   $elasticsearch_discovery_zen_ping_multicast_enabled = true
   $elasticsearch_discovery_zen_ping_unicast_hosts = false
@@ -47,6 +52,8 @@ class graylog2::server::params {
   $elasticsearch_index_prefix = 'graylog2'
   $elasticsearch_max_docs_per_index = '20000000'
   $elasticsearch_max_number_of_indices = '20'
+  $elasticsearch_max_size_per_index = '1073741824'
+  $elasticsearch_max_time_per_index = '1d'
   $elasticsearch_network_bind_host = false
   $elasticsearch_network_host = false
   $elasticsearch_network_publish_host = false
@@ -58,9 +65,11 @@ class graylog2::server::params {
   $elasticsearch_transport_tcp_port = '9350'
   $enable_metrics_collection = false
   $extra_args = ''
+  $gc_warning_threshold = '1s'
   $groovy_shell_enable = false
   $groovy_shell_port = '6789'
   $http_proxy_uri = false
+  $index_optimization_max_num_segments = '1'
   $input_cache_max_size = '0'
   $is_master = true
   $java_opts = ''
@@ -93,12 +102,21 @@ class graylog2::server::params {
   $processor_wait_strategy = 'blocking'
   $rest_enable_cors = false
   $rest_enable_gzip = false
+  $rest_enable_tls = false
   $rest_listen_uri = 'http://127.0.0.1:12900/'
+  $rest_max_chunk_size = '8192'
+  $rest_max_header_size = '8192'
+  $rest_max_initial_line_length = '4096'
+  $rest_thread_pool_size = '16'
+  $rest_tls_cert_file = false
+  $rest_tls_key_file = false
+  $rest_tls_key_password = false
   $rest_transport_uri = 'http://127.0.0.1:12900/'
   $retention_strategy = 'delete'
   $ring_size = '1024'
   $root_password_sha2 = undef
   $root_username = 'admin'
+  $rotation_strategy = 'count'
   $rules_file = false
   $shutdown_timeout = '30000'
   $stale_master_timeout = '2000'
@@ -113,7 +131,7 @@ class graylog2::server::params {
   $transport_email_subject_prefix = '[graylog2]'
   $transport_email_use_auth = true
   $transport_email_use_ssl = true
-  $transport_email_use_tls = true
+  $transport_email_use_tls = false
   $transport_email_web_interface_url = false
   $udp_recvbuffer_sizes = '1048576'
   $versionchecks_connection_request_timeout = '10000'
