@@ -1,6 +1,13 @@
 Graylog2 Puppet Module Changes
 ==============================
 
+## 0.9.0 (2014-12-02)
+
+* Adjust config templates to 0.92 release.
+* Make `graylog2::repo` optional. (#7)
+* Do not install `apt-transport-https` if the resource is already defined.
+* Fix problems with newer Puppet versions regarding variables. (#8 / #11)
+
 ## 0.8.0 (2014-11-19)
 
 * Add timeout option for graylog2-web-interface.
