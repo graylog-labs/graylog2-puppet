@@ -1,6 +1,6 @@
 {
   "name": "graylog2-graylog2",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "author": "Johannes Graf",
   "license": "MIT License",
   "summary": "Install and manage a graylog2 server and the web-interface",

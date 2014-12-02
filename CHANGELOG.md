@@ -1,6 +1,10 @@
 Graylog2 Puppet Module Changes
 ==============================
 
+## 0.9.1 (2014-12-02)
+
+* Unbreak module by passing missing arguments for server and radio.
+
 ## 0.9.0 (2014-12-02)
 
 * Adjust config templates to 0.92 release.
