@@ -1,6 +1,6 @@
 {
   "name": "graylog2-graylog2",
-  "version": "0.9.1",
+  "version": "1.0.0",
   "author": "Johannes Graf",
   "license": "MIT License",
   "summary": "Install and manage a graylog2 server and the web-interface",
@@ -9,6 +9,7 @@
   "issues_url": "https://github.com/Graylog2/graylog2-puppet/issues",
   "tags": [
     "graylog2",
+    "graylog",
     "logging"
   ],
   "operatingsystem_support": [
