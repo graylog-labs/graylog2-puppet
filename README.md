@@ -1,5 +1,5 @@
-Graylog2
-========
+Graylog
+=======
 
 [![Build Status](https://travis-ci.org/Graylog2/graylog2-puppet.png)](https://travis-ci.org/Graylog2/graylog2-puppet)
 
@@ -21,11 +21,11 @@ Table of Contents
 Overview
 --------
 
-This module manages a [Graylog2](http://www.graylog2.org) setup including the
+This module manages a [Graylog](http://www.graylog.org) setup including the
 [server](https://github.com/Graylog2/graylog2-server) and the
 [web-interface](https://github.com/Graylog2/graylog2-web-interface).
 
-Supported Graylog2 versions:
+Supported Graylog versions:
 
 * 0.90
 * 0.91
@@ -76,7 +76,7 @@ git clone https://github.com/puppetlabs/puppetlabs-stdlib.git modules/stdlib
 Usage
 -----
 
-A Graylog2 example including the server and the web-interface component. The
+A Graylog example including the server and the web-interface component. The
 module does **not** setup Elasticsearch and MongoDB so make sure to have those
 installed as well!
 
@@ -93,7 +93,7 @@ class {'graylog2::web':
 }
 ```
 
-Installing graylog2-radio with default settings
+Installing graylog-radio with default settings
 
 ```puppet
 class {'graylog2::repo':
@@ -113,7 +113,7 @@ Authors
 Credits
 -------
 
-To the community package maintainers. (The [official Graylog2 packages](http://graylog2.org/resources/documentation/general/packages)
+To the community package maintainers. (The [official Graylog packages](https://www.graylog.org/documentation/general/packages/)
 are used now.)
 
 * [@hggh](https://github.com/hggh) for providing debs
