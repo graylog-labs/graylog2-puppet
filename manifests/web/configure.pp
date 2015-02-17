@@ -83,7 +83,7 @@ class graylog2::web::configure (
     owner   => $daemon_username,
     group   => $daemon_username,
     mode    => '0640',
-    content => template("${module_name}/graylog2-web-interface.conf.erb"),
+    content => template("${module_name}/web.conf.erb"),
   }
 
 }

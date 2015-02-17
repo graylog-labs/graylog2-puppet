@@ -156,7 +156,7 @@ class graylog2::radio::configure (
   }
 
   $template_config_content = $template_config_file ? {
-    ''      => template("${module_name}/graylog2-radio.conf.erb"),
+    ''      => template("${module_name}/radio.conf.erb"),
     default => template("${module_name}/${template_config_file}")
   }
   file {$config_file:
