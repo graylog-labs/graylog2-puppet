@@ -48,15 +48,15 @@ class graylog2::web::configure (
     fail('The application_secret parameter is too short. (at least 64 characters)!')
   }
 
-  ensure_resource('file', '/etc/graylog2/web', {
-    ensure => directory,
-    owner  => $daemon_username,
-    group  => $daemon_username,
+  ensure_resource('file', '/etc/graylog/web', {
+    ensure  => directory,
+    owner   => $daemon_username,
+    group   => $daemon_username,
   })
 
   case $::osfamily {
     'Debian': {
-      file { '/etc/default/graylog2-web':
+      file { '/etc/default/graylog-web':
         ensure  => present,
         owner   => 'root',
         group   => 'root',
@@ -65,7 +65,7 @@ class graylog2::web::configure (
       }
     }
     'RedHat': {
-      file { '/etc/sysconfig/graylog2-web':
+      file { '/etc/sysconfig/graylog-web':
         ensure  => present,
         owner   => 'root',
         group   => 'root',

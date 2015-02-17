@@ -4,15 +4,15 @@
 JAVA=/usr/bin/java
 
 # HTTP server settings.
-GRAYLOG2_WEB_HTTP_ADDRESS="<%= @http_address %>"
-GRAYLOG2_WEB_HTTP_PORT="<%= @http_port %>"
+GRAYLOG_WEB_HTTP_ADDRESS="<%= @http_address %>"
+GRAYLOG_WEB_HTTP_PORT="<%= @http_port %>"
 
 # Might be used to adjust the Java heap size. (i.e. "-Xms1024m -Xmx2048m")
-GRAYLOG2_WEB_JAVA_OPTS=""
+GRAYLOG_WEB_JAVA_OPTS=""
 
-# Pass some extra args to graylog2-web. (i.e. "-d" to enable debug mode)
-GRAYLOG2_WEB_ARGS=""
+# Pass some extra args to graylog-web. (i.e. "-d" to enable debug mode)
+GRAYLOG_WEB_ARGS=""
 
-# Program that will be used to wrap the graylog2-server command. Useful to
+# Program that will be used to wrap the graylog-web command. Useful to
 # support programs like authbind.
-GRAYLOG2_COMMAND_WRAPPER="<%= @command_wrapper %>"
+GRAYLOG_COMMAND_WRAPPER="<%= @command_wrapper %>"

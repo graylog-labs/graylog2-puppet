@@ -27,9 +27,11 @@ class graylog2::radio::configure (
   $rest_max_header_size,
   $rest_max_initial_line_length,
   $rest_thread_pool_size,
+  $rest_worker_threads_max_pool_size,
   $radio_transport_max_errors,
   $amqp_broker_hostname,
   $amqp_broker_port,
+  $amqp_broker_connect_timeout,
   $amqp_broker_vhost,
   $amqp_broker_username,
   $amqp_broker_password,
@@ -37,6 +39,7 @@ class graylog2::radio::configure (
   $amqp_broker_queue_name,
   $amqp_broker_queue_type,
   $amqp_broker_routing_key,
+  $amqp_persistent_messages_enabled,
   $amqp_broker_parallel_queues,
   $command_wrapper,
   $kafka_brokers,
@@ -47,8 +50,13 @@ class graylog2::radio::configure (
   $processbuffer_processors,
   $processor_wait_strategy,
   $ring_size,
+  $inputbuffer_ring_size,
+  $inputbuffer_processors,
+  $inputbuffer_wait_strategy,
+  $udp_recvbuffer_sizes,
   $async_eventbus_processors,
-  $input_cache_max_size,
+  $disable_sigar,
+  $http_proxy_uri,
   $java_opts,
   $extra_args,
   $template_file,
@@ -71,9 +79,11 @@ class graylog2::radio::configure (
     $rest_max_header_size,
     $rest_max_initial_line_length,
     $rest_thread_pool_size,
+    $rest_worker_threads_max_pool_size,
     $radio_transport_max_errors,
     $amqp_broker_hostname,
     $amqp_broker_port,
+    $amqp_broker_connect_timeout,
     $amqp_broker_vhost,
     $amqp_broker_username,
     $amqp_broker_password,
@@ -90,8 +100,12 @@ class graylog2::radio::configure (
     $processbuffer_processors,
     $processor_wait_strategy,
     $ring_size,
+    $inputbuffer_ring_size,
+    $inputbuffer_processors,
+    $inputbuffer_wait_strategy,
+    $udp_recvbuffer_sizes,
     $async_eventbus_processors,
-    $input_cache_max_size,
+    $http_proxy_uri,
     $java_opts,
     $extra_args,
     $template_file,
@@ -103,10 +117,10 @@ class graylog2::radio::configure (
     $node_id_file,
   )
 
-  ensure_resource('file', '/etc/graylog2/radio', {
-    ensure => directory,
-    owner  => $daemon_username,
-    group  => $daemon_username,
+  ensure_resource('file', '/etc/graylog/radio', {
+    ensure  => directory,
+    owner   => $daemon_username,
+    group   => $daemon_username,
   })
 
   case $::osfamily {
@@ -115,7 +129,7 @@ class graylog2::radio::configure (
         ''      => template("${module_name}/radio.default.erb"),
         default => template("${module_name}/${template_file}"),
       }
-      file { '/etc/default/graylog2-radio':
+      file { '/etc/default/graylog-radio':
         ensure  => present,
         owner   => 'root',
         group   => 'root',
@@ -128,7 +142,7 @@ class graylog2::radio::configure (
         ''      => template("${module_name}/radio.sysconfig.erb"),
         default => template("${module_name}/${template_file}"),
       }
-      file { '/etc/sysconfig/graylog2-radio':
+      file { '/etc/sysconfig/graylog-radio':
         ensure  => present,
         owner   => 'root',
         group   => 'root',

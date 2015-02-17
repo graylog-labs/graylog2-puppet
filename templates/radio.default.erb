@@ -1,11 +1,14 @@
 # WARNING: Maintained by Puppet. Manual changes will be lost!
 
-# Might be used to adjust the Java heap size. (i.e. "-Xms1024m -Xmx2048m")
-GRAYLOG2_RADIO_JAVA_OPTS="<%= @java_opts %>"
+# Path to the java executable.
+JAVA=/usr/bin/java
 
-# Pass some extra args to graylog2-radio. (i.e. "-d" to enable debug mode)
-GRAYLOG2_RADIO_ARGS="<%= @extra_args %>"
+# Default Java options for heap and garbage collection.
+GRAYLOG_RADIO_JAVA_OPTS="<%= @java_opts %>"
 
-# Program that will be used to wrap the graylog2-server command. Useful to
+# Pass some extra args to graylog-radio. (i.e. "-d" to enable debug mode)
+GRAYLOG_RADIO_ARGS="<%= @extra_args %>"
+
+# Program that will be used to wrap the graylog-server command. Useful to
 # support programs like authbind.
-GRAYLOG2_COMMAND_WRAPPER="<%= @command_wrapper %>"
+GRAYLOG_COMMAND_WRAPPER="<%= @command_wrapper %>"

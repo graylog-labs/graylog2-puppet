@@ -1,7 +1,7 @@
 # WARNING: Maintained by Puppet. Manual changes will be lost!
 
 # The auto-generated node ID will be stored in this file and read after restarts. It is a good idea
-# to use an absolute file path here if you are starting graylog2-radio from init scripts or similar.
+# to use an absolute file path here if you are starting graylog-radio from init scripts or similar.
 node_id_file = <%= @node_id_file %>
 
 # Use AMQP ("amqp") or Kafka ("kafka") as message transport?
@@ -10,10 +10,10 @@ transport_type = <%= @transport_type %>
 # Set plugin directory here (relative or absolute)
 plugin_dir = <%= @plugin_dir %>
 
-# REST URI of a Graylog2 server node this radio will register at.
+# REST URI of a Graylog server node this radio will register at.
 graylog2_server_uri = <%= @graylog2_server_uris.join(",") %>
 
-# REST API listen URI. Must be reachable by the graylog2-web-interface and graylog2-server nodes.
+# REST API listen URI. Must be reachable by the graylog-web-interface and graylog-server nodes.
 rest_listen_uri = <%= @rest_listen_uri %>
 
 # REST API transport address. Defaults to the value of rest_listen_uri. Exception: If rest_listen_uri
@@ -69,6 +69,9 @@ rest_max_initial_line_length = <%= @rest_max_initial_line_length %>
 # The size of the thread pool used exclusively for serving the REST API.
 rest_thread_pool_size = <%= @rest_thread_pool_size %>
 
+# The size of the worker thread pool used exclusively for serving the REST API.
+rest_worker_threads_max_pool_size = <%= @rest_worker_threads_max_pool_size %>
+
 # Maximum number of transport errors (e. g. not being able to send a message to the configured
 # message broker) after which this radio node will be paused and the load balancer status will
 # be set to DEAD. Default is 0 (i. e. disabled)
@@ -86,6 +89,13 @@ amqp_broker_hostname = <%= @amqp_broker_hostname %>
 amqp_broker_port = <%= @amqp_broker_port %>
 <% else %>
 # amqp_broker_port = 5672
+<% end %>
+
+# ONLY FOR AMQP: Timeout value for establishing a connection to the AMQP broker
+<% if @amqp_broker_connect_timeout %>
+amqp_broker_connect_timeout = <%= @amqp_broker_connect_timeout %>
+<% else %>
+# amqp_broker_connect_timeout = 5s
 <% end %>
 
 # ONLY FOR AMQP: Virtual host of the AMQP broker to connect to.
@@ -123,6 +133,13 @@ amqp_broker_queue_type = <%= @amqp_broker_queue_type %>
 
 # ONLY FOR AMQP: The routing key used to send the messages.
 amqp_broker_routing_key = <%= @amqp_broker_routing_key %>
+
+# ONLY FOR AMQP: Persist messages to disk on the AMQP broker.
+<% if @amqp_persistent_messages_enabled %>
+amqp_persistent_messages_enabled = <%= @amqp_persistent_messages_enabled %>
+<% else %>
+#amqp_persistent_messages_enabled = false
+<% end %>
 
 # ONLY FOR AMQP: Number of parallel AMQP senders and queues being used. This might increase the throughput
 # of the system if the AMQP broker can handle the number of queues and clients (producers and consumers).
@@ -196,21 +213,22 @@ processor_wait_strategy = <%= @processor_wait_strategy %>
 # Must be a power of 2. (512, 1024, 2048, ...)
 ring_size = <%= @ring_size %>
 
+inputbuffer_ring_size = <%= @inputbuffer_ring_size %>
+inputbuffer_processors = <%= @inputbuffer_processors %>
+inputbuffer_wait_strategy = <%= @inputbuffer_wait_strategy %>
+
+# UDP receive buffer size for all message inputs (e. g. SyslogUDPInput).
+udp_recvbuffer_sizes = <%= @udp_recvbuffer_sizes %>
+
 # Number of threads used exclusively for dispatching internal events. Default is 2.
 async_eventbus_processors = <%= @async_eventbus_processors %>
 
-# When more messages are coming in as we can process, incoming messages will be cached in memory until
-# they are ready to be processed. Per default this data structure is unbounded, so in situations of
-# constant high load, it will grow endlessly until all allocatable memory has been consumed and the
-# process dies.
-# To prevent this, the next setting allows you to define an upper bound for this memory cache, if the
-# number of messages in the cache has reached this limit, incoming messages will be dropped until it
-# has shrunk again.
-#
-# The default is 0, which means no upper bound.
-#
-<% if @input_cache_max_size %>
-input_cache_max_size = <%= @input_cache_max_size %>
+# Disable the use of SIGAR for collecting system stats
+disable_sigar = <%= @disable_sigar %>
+
+# HTTP proxy for outgoing HTTP calls
+<% if @http_proxy_uri %>
+http_proxy_uri = <%= @http_proxy_uri %>
 <% else %>
-#input_cache_max_size = 0
+#http_proxy_uri =
 <% end %>

@@ -19,16 +19,16 @@ class graylog2::server::params {
     }
   }
 
-  $package_name = 'graylog2-server'
+  $package_name = 'graylog-server'
   $package_version = 'installed'
 
-  $service_name  = 'graylog2-server'
+  $service_name  = 'graylog-server'
 
   $service_ensure = 'running'
   $service_enable = true
 
-  $config_file = '/etc/graylog2.conf'
-  $daemon_username = 'graylog2'
+  $config_file = '/etc/graylog/server/server.conf'
+  $daemon_username = 'graylog'
 
   # Config file variables.
   $alert_check_interval = '60'
@@ -39,7 +39,7 @@ class graylog2::server::params {
   $dead_letters_enabled = false
   $disable_index_optimization = false
   $disable_index_range_calculation = false
-  $disable_output_cache = false
+  $disable_sigar = false
   $elasticsearch_analyzer = 'standard'
   $elasticsearch_cluster_discovery_timeout = '5000'
   $elasticsearch_cluster_name = 'graylog2'
@@ -70,14 +70,21 @@ class graylog2::server::params {
   $groovy_shell_port = '6789'
   $http_proxy_uri = false
   $index_optimization_max_num_segments = '1'
-  $input_cache_max_size = '0'
+  $inputbuffer_processors = '2'
+  $inputbuffer_ring_size = '65536'
+  $inputbuffer_wait_strategy = 'blocking'
   $is_master = true
-  $java_opts = ''
+  $java_opts = '-Xms1g -Xmx1g -XX:NewRatio=1 -XX:PermSize=128m -XX:MaxPermSize=256m -server -XX:+ResizeTLAB -XX:+UseConcMarkSweepGC -XX:+CMSConcurrentMTEnabled -XX:+CMSClassUnloadingEnabled -XX:+UseParNewGC -XX:-OmitStackTraceInFastThrow'
   $lb_recognition_period_seconds = '3'
   $ldap_connection_timeout = '2000'
-  $message_cache_commit_interval = '1000'
-  $message_cache_off_heap = true
-  $message_cache_spool_dir = '/var/lib/graylog2-server/message-cache-spool'
+  $message_journal_dir = '/var/lib/graylog-server/journal'
+  $message_journal_enabled = true
+  $message_journal_flush_age = '1m'
+  $message_journal_flush_interval = '1000000'
+  $message_journal_max_age = '12h'
+  $message_journal_max_size = '5gb'
+  $message_journal_segment_age = '1h'
+  $message_journal_segment_size = '100mb'
   $mongodb_database = 'graylog2'
   $mongodb_host = '127.0.0.1'
   $mongodb_max_connections = '100'
@@ -87,17 +94,19 @@ class graylog2::server::params {
   $mongodb_threads_allowed_to_block_multiplier = '5'
   $mongodb_useauth = false
   $mongodb_user = false
-  $node_id_file = '/etc/graylog2/server/node-id'
+  $node_id_file = '/etc/graylog/server/node-id'
   $no_retention = false
-  $output_batch_size = '25'
+  $output_batch_size = '500'
   $outputbuffer_processor_keep_alive_time = '5000'
   $outputbuffer_processors = '3'
   $outputbuffer_processor_threads_core_pool_size = '3'
   $outputbuffer_processor_threads_max_pool_size = '30'
+  $output_fault_count_threshold = '5'
+  $output_fault_penalty_seconds = '30'
   $output_flush_interval = '1'
   $output_module_timeout = '10000'
   $password_secret = undef
-  $plugin_dir = '/usr/share/graylog2-server/plugin'
+  $plugin_dir = '/usr/share/graylog-server/plugin'
   $processbuffer_processors = '5'
   $processor_wait_strategy = 'blocking'
   $rest_enable_cors = false
@@ -112,9 +121,12 @@ class graylog2::server::params {
   $rest_tls_key_file = false
   $rest_tls_key_password = false
   $rest_transport_uri = 'http://127.0.0.1:12900/'
+  $rest_worker_threads_max_pool_size = '16'
   $retention_strategy = 'delete'
-  $ring_size = '1024'
+  $ring_size = '65536'
+  $root_email = ''
   $root_password_sha2 = undef
+  $root_timezone = 'UTC'
   $root_username = 'admin'
   $rotation_strategy = 'count'
   $rules_file = false
@@ -122,13 +134,22 @@ class graylog2::server::params {
   $stale_master_timeout = '2000'
   $stream_processing_max_faults = '3'
   $stream_processing_timeout = '2000'
+  $telemetry_cache_timeout = '1m'
+  $telemetry_enabled = false
+  $telemetry_max_queue_size = '10'
+  $telemetry_report_interval = '1m'
+  $telemetry_service_connect_timeout = '1s'
+  $telemetry_service_read_timeout = '5s'
+  $telemetry_service_write_timeout = '5s'
+  $telemetry_token = ''
+  $telemetry_url = 'https://telemetry-in.graylog.com/submit/'
   $transport_email_auth_password = 'secret'
   $transport_email_auth_username = 'you@example.com'
   $transport_email_enabled = false
-  $transport_email_from_email = 'graylog2@example.com'
+  $transport_email_from_email = 'graylog@example.com'
   $transport_email_hostname = 'mail.example.com'
   $transport_email_port = '587'
-  $transport_email_subject_prefix = '[graylog2]'
+  $transport_email_subject_prefix = '[Graylog]'
   $transport_email_use_auth = true
   $transport_email_use_ssl = true
   $transport_email_use_tls = false
@@ -138,5 +159,5 @@ class graylog2::server::params {
   $versionchecks_connect_timeout = '10000'
   $versionchecks_socket_timeout = '10000'
   $versionchecks = true
-  $versionchecks_uri = 'http://versioncheck.torch.sh/check'
+  $versionchecks_uri = 'https://versioncheck.graylog.com/check'
 }
