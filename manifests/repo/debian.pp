@@ -22,15 +22,13 @@ class graylog2::repo::debian (
 
   if !defined(Apt::Source[$repo_name]) {
     apt::source { $repo_name:
-      location    => $baseurl,
-      release     => $release,
-      repos       => $repos,
-      pin         => $pin,
-      include_src => false,
-      require     => [
-        File['/etc/apt/trusted.gpg.d/graylog2-keyring.gpg'],
-        Package['apt-transport-https'],
-      ],
+      location          => $baseurl,
+      release           => $release,
+      repos             => $repos,
+      pin               => $pin,
+      include_src       => false,
+      required_packages => ['apt-transport-https'],
+      require           => File['/etc/apt/trusted.gpg.d/graylog2-keyring.gpg']
     }
 
     file {'/etc/apt/trusted.gpg.d/graylog2-keyring.gpg':
