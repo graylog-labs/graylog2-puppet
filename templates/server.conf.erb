@@ -41,7 +41,11 @@ rest_listen_uri = <%= @rest_listen_uri %>
 # is set to a wildcard IP address (0.0.0.0) the first non-loopback IPv4 system address is used.
 # This will be promoted in the cluster discovery APIs and other nodes may try to connect on this
 # address. (see rest_listen_uri)
+<%- if @rest_listen_uri =~ /0\.0\.0\.0/ -%>
+#rest_transport_uri = <%= @rest_transport_uri %>
+<% else %>
 rest_transport_uri = <%= @rest_transport_uri %>
+<% end %>
 
 # Enable CORS headers for REST API. This is necessary for JS-clients accessing the server directly.
 # If these are disabled, modern browsers will not be able to retrieve resources from the server.
