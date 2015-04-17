@@ -3,6 +3,8 @@ require 'rspec/core/rake_task'
 require 'puppet-syntax/tasks/puppet-syntax'
 require 'puppet-lint/tasks/puppet-lint'
 require 'puppet_blacksmith/rake_tasks'
+require 'puppetlabs_spec_helper/rake_tasks'
+
 
 PuppetLint.configuration.relative = true
 PuppetLint.configuration.fail_on_warnings = true
@@ -20,10 +22,6 @@ exclude_paths = [
 ]
 PuppetLint.configuration.ignore_paths = exclude_paths
 PuppetSyntax.exclude_paths = exclude_paths
-
-RSpec::Core::RakeTask.new(:spec) do |t|
-  t.pattern = 'spec/*/*_spec.rb'
-end
 
 task :default => [:syntax, :lint, :spec]
 
