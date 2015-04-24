@@ -27,8 +27,8 @@ class graylog2::repo (
     $repo_baseurl = $baseurl
   } else {
     $repo_baseurl = $::osfamily ? {
-        'Debian' => 'https://packages.graylog2.org/repo/debian/',
-        'RedHat' => "https://packages.graylog2.org/repo/el/\$releasever/${version}/\$basearch/",
+        'Debian' => 'https://packages.graylog2.org/debian/',
+        'RedHat' => "https://packages.graylog2.org/el/\$releasever/${version}/\$basearch/",
         default  => fail("${::osfamily} is not supported by ${module_name}")
     }
   }
