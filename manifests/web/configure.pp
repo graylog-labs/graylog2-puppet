@@ -79,11 +79,12 @@ class graylog2::web::configure (
   }
 
   file {$config_file:
-    ensure  => file,
-    owner   => $daemon_username,
-    group   => $daemon_username,
-    mode    => '0640',
-    content => template("${module_name}/web.conf.erb"),
+    ensure    => file,
+    owner     => $daemon_username,
+    group     => $daemon_username,
+    mode      => '0640',
+    show_diff => false,
+    content   => template("${module_name}/web.conf.erb"),
   }
 
 }
