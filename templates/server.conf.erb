@@ -338,11 +338,7 @@ stale_master_timeout = <%= @stale_master_timeout%>
 shutdown_timeout = <%= @shutdown_timeout %>
 
 # MongoDB Configuration
-<% if @mongodb_useauth %>
-mongodb_uri = mongodb://<%= @mongodb_user %>:<%= @mongodb_password %>@<%= @mongodb_hosts %>/<%= @mongodb_database %><% if @mongodb_replica_set %>?replicaSet=<%= @mongodb_replica_set %><% end %>
-<% else %>
-mongodb_uri = mongodb://<%= @mongodb_hosts %>/<%= @mongodb_database %><% if @mongodb_replica_set %>?replicaSet=<%= @mongodb_replica_set %><% end %>
-<% end %>
+mongodb_uri = mongodb://<% if @mongodb_useauth %><%= @mongodb_user %>:<%= @mongodb_password %>@<% end %><%= @mongodb_hosts %>/<%= @mongodb_database %><% if @mongodb_replica_set %>?replicaSet=<%= @mongodb_replica_set %><% end %>
 
 # Raise this according to the maximum connections your MongoDB server can handle if you encounter MongoDB connection problems.
 mongodb_max_connections = <%= @mongodb_max_connections %>
