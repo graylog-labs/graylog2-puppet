@@ -213,7 +213,6 @@ class graylog2::server::configure (
     $message_journal_segment_size,
     $mongodb_database,
     $mongodb_max_connections,
-    $mongodb_port,
     $mongodb_threads_allowed_to_block_multiplier,
     $node_id_file,
     $output_batch_size,
