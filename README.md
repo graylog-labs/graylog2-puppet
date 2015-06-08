@@ -80,7 +80,7 @@ installed as well!
 
 ```puppet
 class {'graylog2::repo':
-  version => '1.0'
+  version => '1.1'
 } ->
 class {'graylog2::server':
   password_secret    => 'veryStrongSecret',
@@ -95,7 +95,7 @@ Installing graylog-radio with default settings
 
 ```puppet
 class {'graylog2::repo':
-  version => '1.0'
+  version => '1.1'
 }->
 class {'graylog2::radio': }
 ```
