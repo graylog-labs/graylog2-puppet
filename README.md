@@ -27,7 +27,7 @@ This module manages a [Graylog](http://www.graylog.org) setup including the
 
 Supported Graylog versions:
 
-* 1.0
+* 1.1
 
 Supported platforms:
 
