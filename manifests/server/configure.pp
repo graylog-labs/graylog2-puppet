@@ -70,7 +70,6 @@ class graylog2::server::configure (
   $mongodb_hosts,
   $mongodb_max_connections,
   $mongodb_password,
-  $mongodb_port,
   $mongodb_replica_set,
   $mongodb_threads_allowed_to_block_multiplier,
   $mongodb_useauth,
