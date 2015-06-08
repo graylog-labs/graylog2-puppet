@@ -1,6 +1,11 @@
 Graylog Puppet Module Changes
 =============================
 
+## 1.1.0 (2015-06-08)
+
+* Update for Graylog v1.1 release.
+* Drops support for all previous releases.
+
 ## 1.0.0 (2015-02-17)
 
 * Update for Graylog v1.0 release.
