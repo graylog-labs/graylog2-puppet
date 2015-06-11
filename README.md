@@ -27,7 +27,7 @@ This module manages a [Graylog](http://www.graylog.org) setup including the
 
 Supported Graylog versions:
 
-* 1.1
+* 1.0, 1.1
 
 Supported platforms:
 
@@ -91,11 +91,11 @@ class {'graylog2::web':
 }
 ```
 
-Installing graylog-radio with default settings
+Installing graylog-radio with default settings (deprecated since Graylog 1.0)
 
 ```puppet
 class {'graylog2::repo':
-  version => '1.1'
+  version => '0.92'
 }->
 class {'graylog2::radio': }
 ```
