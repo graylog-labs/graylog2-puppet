@@ -19,6 +19,8 @@ class graylog2::web::configure (
   $http_address,
   $http_port,
   $http_path_prefix,
+  $extra_args,
+  $java_opts,
   $timeout,
 ) {
 
@@ -33,6 +35,8 @@ class graylog2::web::configure (
     $field_list_limit,
     $http_address,
     $http_port,
+    $extra_args,
+    $java_opts,
   )
 
   validate_absolute_path(

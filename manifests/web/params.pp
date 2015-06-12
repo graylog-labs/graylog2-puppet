@@ -46,6 +46,9 @@ class graylog2::web::params {
 
   $http_path_prefix = false
 
+  $extra_args = ''
+  $java_opts = ''
+
   $config_file = '/etc/graylog/web/web.conf'
 
   $daemon_username = 'graylog-web'
