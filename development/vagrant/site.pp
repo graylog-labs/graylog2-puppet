@@ -1,15 +1,15 @@
 node default {
   $es_cluster_name = 'gl2'
   $es_version = $::osfamily ? {
-    'Debian' => '1.4.3',
-    'Redhat' => '1.4.3-1',
+    'Debian' => '1.5.2',
+    'Redhat' => '1.5.2-1',
   }
 
   # Dependencies
   class { 'elasticsearch':
     version      => $es_version,
     manage_repo  => true,
-    repo_version => '1.4',
+    repo_version => '1.5',
     java_install => true,
   }
 
@@ -26,7 +26,7 @@ node default {
 
 
   # Graylog2
-  class { 'graylog2::repo': version => '1.0' }
+  class { 'graylog2::repo': version => '1.1' }
 
   class {'graylog2::server':
     password_secret            => '16BKgz0Qelg6eFeJYh8lc4hWU1jJJmAgHlPEx6qkBa2cQQTUG300FYlPOEvXsOV4smzRtnwjHAKykE3NIWXbpL7yGLN7V2P2',

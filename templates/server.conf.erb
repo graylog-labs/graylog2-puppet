@@ -337,6 +337,11 @@ stale_master_timeout = <%= @stale_master_timeout%>
 # Time in milliseconds which Graylog is waiting for all threads to stop on shutdown.
 shutdown_timeout = <%= @shutdown_timeout %>
 
+<% if @mongodb_hosts %>
+# MongoDB connection string
+# See http://docs.mongodb.org/manual/reference/connection-string/ for details
+mongodb_uri = mongodb://<% if @mongodb_useauth %><%= @mongodb_user %>:<%= @mongodb_password %>@<% end %><%= @mongodb_hosts %>/<%= @mongodb_database %><% if @mongodb_replica_set %>?replicaSet=<%= @mongodb_replica_set %><% end %>
+<% else %>
 # MongoDB Configuration
 mongodb_useauth = <%= @mongodb_useauth %>
 <% if @mongodb_user %>
@@ -357,6 +362,13 @@ mongodb_replica_set = <%= @mongodb_replica_set.join(',') %>
 <% end %>
 mongodb_database = <%= @mongodb_database %>
 mongodb_port = <%= @mongodb_port %>
+<% end %>
+
+# Authenticate against the MongoDB server
+#mongodb_uri = mongodb://grayloguser:secret@localhost:27017/graylog2
+
+# Use a replica set instead of a single host
+#mongodb_uri = mongodb://grayloguser:secret@localhost:27017,localhost:27018,localhost:27019/graylog2
 
 # Raise this according to the maximum connections your MongoDB server can handle if you encounter MongoDB connection problems.
 mongodb_max_connections = <%= @mongodb_max_connections %>

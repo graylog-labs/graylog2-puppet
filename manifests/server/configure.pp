@@ -68,6 +68,7 @@ class graylog2::server::configure (
   $message_journal_segment_size,
   $mongodb_database,
   $mongodb_host,
+  $mongodb_hosts,
   $mongodb_max_connections,
   $mongodb_password,
   $mongodb_port,
@@ -212,9 +213,7 @@ class graylog2::server::configure (
     $message_journal_segment_age,
     $message_journal_segment_size,
     $mongodb_database,
-    $mongodb_host,
     $mongodb_max_connections,
-    $mongodb_port,
     $mongodb_threads_allowed_to_block_multiplier,
     $node_id_file,
     $output_batch_size,
@@ -291,6 +290,11 @@ class graylog2::server::configure (
 
   if size($root_password_sha2) < 64 {
     fail('The root_password_sha2 parameter does not look like a SHA256 checksum!')
+  }
+
+  # Check wheather old, version 1.0, configuration method is used and throw a warning
+  if ! $mongodb_hosts {
+    warning('You are using a deprecated MongoDB configuration method. If you are running Graylog >=1.1, please use mongodb_hosts.')
   }
 
   ensure_resource('file', '/etc/graylog/server', {
