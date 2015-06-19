@@ -28,6 +28,7 @@ root_password_sha2 = <%= @root_password_sha2 %>
 root_email = <%= @root_email %>
 
 # The time zone setting of the root user.
+# http://www.joda.org/joda-time/apidocs/org/joda/time/DateTimeZone.html#forID-java.lang.String-
 # Default is UTC
 root_timezone = <%= @root_timezone %>
 
@@ -39,8 +40,10 @@ rest_listen_uri = <%= @rest_listen_uri %>
 
 # REST API transport address. Defaults to the value of rest_listen_uri. Exception: If rest_listen_uri
 # is set to a wildcard IP address (0.0.0.0) the first non-loopback IPv4 system address is used.
-# This will be promoted in the cluster discovery APIs and other nodes may try to connect on this
-# address. (see rest_listen_uri)
+# If set, his will be promoted in the cluster discovery APIs, so other nodes may try to connect on
+# this address and it is used to generate URLs addressing entities in the REST API. (see rest_listen_uri)
+# You will need to define this, if your Graylog server is running behind a HTTP proxy that is rewriting
+# the scheme, host name or URI.
 rest_transport_uri = <%= @rest_transport_uri %>
 
 # Enable CORS headers for REST API. This is necessary for JS-clients accessing the server directly.
@@ -225,6 +228,11 @@ elasticsearch_discovery_initial_state_timeout = <%= @elasticsearch_discovery_ini
 # Note that this setting only takes effect on newly created indices.
 elasticsearch_analyzer = <%= @elasticsearch_analyzer %>
 
+# Store message timestamps as doc values in Elasticsearch. This will improve memory the consumption of
+# Elasticsearch at the cost of some performance at indexing time and increased index size.
+# See http://www.elastic.co/guide/en/elasticsearch/guide/master/doc-values.html for details.
+elasticsearch_store_timestamps_as_doc_values = <%= @elasticsearch_store_timestamps_as_doc_values %>
+
 # Batch size for the Elasticsearch output. This is the maximum (!) number of messages the Elasticsearch output
 # module will get at once and write to Elasticsearch in a batch call. If the configured batch size has not been
 # reached within output_flush_interval seconds, everything that is available will be flushed at once. Remember
@@ -370,11 +378,13 @@ mongodb_port = <%= @mongodb_port %>
 # Use a replica set instead of a single host
 #mongodb_uri = mongodb://grayloguser:secret@localhost:27017,localhost:27018,localhost:27019/graylog2
 
-# Raise this according to the maximum connections your MongoDB server can handle if you encounter MongoDB connection problems.
+# Increase this value according to the maximum connections your MongoDB server can handle from a single client
+# if you encounter MongoDB connection problems.
 mongodb_max_connections = <%= @mongodb_max_connections %>
 
 # Number of threads allowed to be blocked by MongoDB connections multiplier. Default: 5
-# If mongodb_max_connections is 100, and mongodb_threads_allowed_to_block_multiplier is 5, then 500 threads can block. More than that and an exception will be thrown.
+# If mongodb_max_connections is 100, and mongodb_threads_allowed_to_block_multiplier is 5,
+# then 500 threads can block. More than that and an exception will be thrown.
 # http://api.mongodb.org/java/current/com/mongodb/MongoOptions.html#threadsAllowedToBlockForConnectionMultiplier
 mongodb_threads_allowed_to_block_multiplier = <%= @mongodb_threads_allowed_to_block_multiplier %>
 
@@ -407,7 +417,34 @@ transport_email_web_interface_url = <%= @transport_email_web_interface_url %>
 #transport_email_web_interface_url = https://graylog2.example.com
 <% end %>
 
-# HTTP proxy for outgoing HTTP calls
+# The default connect timeout for outgoing HTTP connections.
+# Values must be a positive duration (and between 1 and 2147483647 when converted to milliseconds).
+# Default: 5s
+<%- if @http_connect_timeout -%>
+http_connect_timeout = <%= @http_connect_timeout %>
+<%- else -%>
+#http_connect_timeout = 5s
+<%- end -%>
+
+# The default read timeout for outgoing HTTP connections.
+# Values must be a positive duration (and between 1 and 2147483647 when converted to milliseconds).
+# Default: 10s
+<%- if @http_read_timeout -%>
+http_read_timeout = <%= @http_read_timeout %>
+<%- else -%>
+#http_read_timeout = 10s
+<%- end -%>
+
+# The default write timeout for outgoing HTTP connections.
+# Values must be a positive duration (and between 1 and 2147483647 when converted to milliseconds).
+# Default: 10s
+<%- if @http_write_timeout -%>
+http_write_timeout = <%= @http_write_timeout %>
+<%- else -%>
+#http_write_timeout = 10s
+<%- end -%>
+
+# HTTP proxy for outgoing HTTP connections
 <% if @http_proxy_uri %>
 http_proxy_uri = <%= @http_proxy_uri %>
 <% else %>
@@ -424,9 +461,11 @@ disable_index_optimization = <%= @disable_index_optimization %>
 index_optimization_max_num_segments = <%= @index_optimization_max_num_segments %>
 
 # Disable the index range calculation on all open/available indices and only calculate the range for the latest
-# index. This may speed up index cycling on systems with large indices but it might lead to wrong search results
-# in regard to the time range of the messages (i. e. messages within a certain range may not be found). The default
-# is to calculate the time range on all open/available indices.
+# index.
+# This may speed up index cycling on systems with large indices but it might lead to wrong search results
+# in regard to the time range of the messages (i. e. messages within a certain range may not be found) if the indices
+# have been modified after Graylog rotated them.
+# Default: true
 disable_index_range_calculation = <%= @disable_index_range_calculation %>
 
 # The threshold of the garbage collection runs. If GC runs take longer than this threshold, a system notification
@@ -439,9 +478,6 @@ ldap_connection_timeout = <%= @ldap_connection_timeout %>
 # Version checks settings. All timeouts are in milliseconds.
 versionchecks = <%= @versionchecks %>
 versionchecks_uri = <%= @versionchecks_uri %>
-versionchecks_connection_request_timeout = <%= @versionchecks_connection_request_timeout %>
-versionchecks_connect_timeout = <%= @versionchecks_connect_timeout %>
-versionchecks_socket_timeout = <%= @versionchecks_socket_timeout %>
 
 # https://github.com/bazhenov/groovy-shell-server
 groovy_shell_enable = <%= @groovy_shell_enable %>
@@ -453,30 +489,55 @@ enable_metrics_collection = <%= @enable_metrics_collection %>
 # Disable the use of SIGAR for collecting system stats
 disable_sigar = <%= @disable_sigar %>
 
-# TELEMETRY
-# Enable publishing Telemetry data
-telemetry_enabled = <%= @telemetry_enabled %>
+# Amount of time of inactivity after which collectors are flagged as inactive (Default: 1 minute)
+<%- if @collector_inactive_threshold -%>
+collector_inactive_threshold = <%= @collector_inactive_threshold %>
+<%- else -%>
+#collector_inactive_threshold = 1m
+<%- end -%>
 
-# Base URL of the Telemetry service
-telemetry_url = <%= @telemetry_url %>
+# Amount of time after which inactive collectors are purged (Default: 14 days)
+<%- if @collector_expiration_threshold -%>
+collector_expiration_threshold = <%= @collector_expiration_threshold %>
+<%- else -%>
+#collector_expiration_threshold = 14d
+<%- end -%>
 
-# Authentication token for the Telemetry service
-telemetry_token = <%= @telemetry_token %>
+# The default cache time for dashboard widgets. (Default: 10 seconds, minimum: 1 second)
+<%- if @dashboard_widget_default_cache_time -%>
+dashboard_widget_default_cache_time = <%= @dashboard_widget_default_cache_time %>
+<%- else -%>
+#dashboard_widget_default_cache_time = 10s
+<%- end -%>
 
-# How often the Telemetry data should be reported
-telemetry_report_interval = <%= @telemetry_report_interval %>
+<%- if @usage_statistics_enabled -%>
 
-# Number of Telemetry data sets to store locally if the connection to the Telemetry service fails
-telemetry_max_queue_size = <%= @telemetry_max_queue_size %>
+# Anonymous usage statistics settings
+usage_statistics_enabled = <%= @usage_statistics_enabled %>
+<%- if @usage_statistics_url -%>
+usage_statistics_url = <%= @usage_statistics_url %>
+<%- end -%>
+<%- if @usage_statistics_cache_timeout -%>
+usage_statistics_cache_timeout = <%= @usage_statistics_cache_timeout %>
+<%- end -%>
+<%- if @usage_statistics_gzip_enabled -%>
+usage_statistics_gzip_enabled = <%= @usage_statistics_gzip_enabled %>
+<%- end -%>
+<%- if @usage_statistics_initial_delay -%>
+usage_statistics_initial_delay = <%= @usage_statistics_initial_delay %>
+<%- end -%>
+<%- if @usage_statistics_max_queue_size -%>
+usage_statistics_max_queue_size = <%= @usage_statistics_max_queue_size %>
+<%- end -%>
+<%- if @usage_statistics_report_interval -%>
+usage_statistics_report_interval = <%= @usage_statistics_report_interval %>
+<%- end -%>
 
-# TTL for Telemetry data in local cache
-telemetry_cache_timeout = <%= @telemetry_cache_timeout %>
+<%- if @usage_statistics_offline_mode -%>
+usage_statistics_offline_mode = <%= @usage_statistics_offline_mode %>
+<%- if @usage_statistics_dir -%>
+usage_statistics_dir = <%= @usage_statistics_dir %>
+<%- end -%>
+<%- end -%>
 
-# Connect timeout for HTTP connections
-telemetry_service_connect_timeout = <%= @telemetry_service_connect_timeout %>
-
-# Write timeout for HTTP connections
-telemetry_service_write_timeout = <%= @telemetry_service_write_timeout %>
-
-# Read timeout for HTTP connections
-telemetry_service_read_timeout = <%= @telemetry_service_read_timeout %>
+<%- end -%>
