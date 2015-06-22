@@ -95,7 +95,7 @@ Installing graylog-radio with default settings (deprecated since Graylog 1.0)
 
 ```puppet
 class {'graylog2::repo':
-  version => '0.92'
+  version => '1.1'
 }->
 class {'graylog2::radio': }
 ```
