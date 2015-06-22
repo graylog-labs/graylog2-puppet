@@ -1,9 +1,12 @@
 Graylog Puppet Module Changes
 =============================
 
-## 1.1.0 (2015-xx-xx) [unreleased]
+## 1.1.0 (2015-06-22)
 
-* Update for Graylog v1.1 release.
+* Use `required_packages` instead of `require` for apt source. (#15)
+* Added spec tests for `graylog2::server` class. (#18)
+* Suppress diffs for config files. (#23)
+* Update for Graylog v1.1 release. (#26)
 * Usage of any `mongodb_*` option other than `mongodb_uri` is deprecated
   and will log a warning.
 
