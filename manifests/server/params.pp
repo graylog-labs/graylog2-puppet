@@ -94,7 +94,7 @@ class graylog2::server::params {
   $message_journal_segment_size = '100mb'
   $mongodb_database = 'graylog2'
   $mongodb_host = '127.0.0.1'
-  $mongodb_hosts = false
+  $mongodb_uri = false
   $mongodb_max_connections = '100'
   $mongodb_password = false
   $mongodb_port = '27017'

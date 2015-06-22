@@ -75,7 +75,7 @@ class graylog2::server::configure (
   $message_journal_segment_size,
   $mongodb_database,
   $mongodb_host,
-  $mongodb_hosts,
+  $mongodb_uri,
   $mongodb_max_connections,
   $mongodb_password,
   $mongodb_port,
@@ -300,8 +300,8 @@ class graylog2::server::configure (
   }
 
   # Check wheather old, version 1.0, configuration method is used and throw a warning
-  if ! $mongodb_hosts {
-    warning('You are using a deprecated MongoDB configuration method. If you are running Graylog >=1.1, please use mongodb_hosts.')
+  if ! $mongodb_uri {
+    warning('You are using a deprecated MongoDB configuration method. If you are running Graylog >=1.1, please use mongodb_uri.')
   }
 
   ensure_resource('file', '/etc/graylog/server', {

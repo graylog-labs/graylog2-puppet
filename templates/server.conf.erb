@@ -345,10 +345,10 @@ stale_master_timeout = <%= @stale_master_timeout%>
 # Time in milliseconds which Graylog is waiting for all threads to stop on shutdown.
 shutdown_timeout = <%= @shutdown_timeout %>
 
-<% if @mongodb_hosts %>
+<% if @mongodb_uri %>
 # MongoDB connection string
 # See http://docs.mongodb.org/manual/reference/connection-string/ for details
-mongodb_uri = mongodb://<% if @mongodb_useauth %><%= @mongodb_user %>:<%= @mongodb_password %>@<% end %><%= @mongodb_hosts %>/<%= @mongodb_database %><% if @mongodb_replica_set %>?replicaSet=<%= @mongodb_replica_set %><% end %>
+mongodb_uri = <%= @mongodb_uri %>
 <% else %>
 # MongoDB Configuration
 mongodb_useauth = <%= @mongodb_useauth %>
