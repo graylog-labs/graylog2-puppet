@@ -311,12 +311,13 @@ class graylog2::server::configure (
   })
 
   file {$config_file:
-    ensure  => file,
-    owner   => $daemon_username,
-    group   => $daemon_username,
-    mode    => '0640',
-    content => template("${module_name}/server.conf.erb"),
-    require => File['/etc/graylog/server'],
+    ensure    => file,
+    owner     => $daemon_username,
+    group     => $daemon_username,
+    mode      => '0640',
+    content   => template("${module_name}/server.conf.erb"),
+    show_diff => false,
+    require   => File['/etc/graylog/server'],
   }
 
   case $::osfamily {

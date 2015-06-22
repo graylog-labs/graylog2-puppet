@@ -160,11 +160,12 @@ class graylog2::radio::configure (
     default => template("${module_name}/${template_config_file}")
   }
   file {$config_file:
-    ensure  => file,
-    owner   => $daemon_username,
-    group   => $daemon_username,
-    mode    => '0640',
-    content => $template_config_content,
+    ensure    => file,
+    owner     => $daemon_username,
+    group     => $daemon_username,
+    mode      => '0640',
+    content   => $template_config_content,
+    show_diff => false,
   }
 
 }
