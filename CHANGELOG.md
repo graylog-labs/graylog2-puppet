@@ -4,7 +4,8 @@ Graylog Puppet Module Changes
 ## 1.1.0 (2015-xx-xx) [unreleased]
 
 * Update for Graylog v1.1 release.
-* Old, non-mongodb_uri, MongoDB configuration method is now considered deprecated and throws a warning.
+* Usage of any `mongodb_*` option other than `mongodb_uri` is deprecated
+  and will log a warning.
 
 ## 1.0.0 (2015-02-17)
 
