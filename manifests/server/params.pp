@@ -159,7 +159,7 @@ class graylog2::server::params {
   $usage_statistics_enabled = true
   $usage_statistics_gzip_enabled = true
   $usage_statistics_initial_delay = '5m'
-  $usage_statistics_max_queue_size = 10
+  $usage_statistics_max_queue_size = '10'
   $usage_statistics_offline_mode = false
   $usage_statistics_report_interval = '6h'
   $usage_statistics_url = 'https://stats-collector.graylog.com/submit/'
