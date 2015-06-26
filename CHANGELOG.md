@@ -1,6 +1,10 @@
 Graylog Puppet Module Changes
 =============================
 
+## 1.1.1 (2015-06-26)
+
+* Quote bare integer to pass validation check. (#28)
+
 ## 1.1.0 (2015-06-22)
 
 * Use `required_packages` instead of `require` for apt source. (#15)
