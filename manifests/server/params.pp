@@ -64,14 +64,12 @@ class graylog2::server::params {
   $elasticsearch_node_master = false
   $elasticsearch_node_name = 'graylog2-server'
   $elasticsearch_replicas = '0'
+  $elasticsearch_request_timeout = '1m'
   $elasticsearch_shards = '4'
-  $elasticsearch_store_timestamps_as_doc_values = true
   $elasticsearch_transport_tcp_port = '9350'
   $enable_metrics_collection = false
   $extra_args = ''
   $gc_warning_threshold = '1s'
-  $groovy_shell_enable = false
-  $groovy_shell_port = '6789'
   $http_connect_timeout = '5s'
   $http_proxy_uri = false
   $http_read_timeout = '10s'

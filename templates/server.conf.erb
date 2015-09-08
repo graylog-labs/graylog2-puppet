@@ -228,10 +228,10 @@ elasticsearch_discovery_initial_state_timeout = <%= @elasticsearch_discovery_ini
 # Note that this setting only takes effect on newly created indices.
 elasticsearch_analyzer = <%= @elasticsearch_analyzer %>
 
-# Store message timestamps as doc values in Elasticsearch. This will improve memory the consumption of
-# Elasticsearch at the cost of some performance at indexing time and increased index size.
-# See http://www.elastic.co/guide/en/elasticsearch/guide/master/doc-values.html for details.
-elasticsearch_store_timestamps_as_doc_values = <%= @elasticsearch_store_timestamps_as_doc_values %>
+# Global request timeout for Elasticsearch requests (e. g. during search, index creation, or index time-range
+# calculations) based on a best-effort to restrict the runtime of Elasticsearch operations.
+# Default: 1m
+elasticsearch_request_timeout = <%= @elasticsearch_request_timeout %>
 
 # Batch size for the Elasticsearch output. This is the maximum (!) number of messages the Elasticsearch output
 # module will get at once and write to Elasticsearch in a batch call. If the configured batch size has not been
@@ -478,10 +478,6 @@ ldap_connection_timeout = <%= @ldap_connection_timeout %>
 # Version checks settings. All timeouts are in milliseconds.
 versionchecks = <%= @versionchecks %>
 versionchecks_uri = <%= @versionchecks_uri %>
-
-# https://github.com/bazhenov/groovy-shell-server
-groovy_shell_enable = <%= @groovy_shell_enable %>
-groovy_shell_port = <%= @groovy_shell_port %>
 
 # Enable collection of Graylog-related metrics into MongoDB
 enable_metrics_collection = <%= @enable_metrics_collection %>

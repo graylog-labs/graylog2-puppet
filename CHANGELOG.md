@@ -1,6 +1,13 @@
 Graylog Puppet Module Changes
 =============================
 
+## 1.2.0 (not released yet)
+
+* Update for Graylog v1.2 release.
+  * Added `elasticsearch_request_timeout` option.
+  * Removed `elasticsearch_store_timestamps_as_doc_values` option.
+  * Removed `groovy_shell_enable` and `groovy_shell_port` options.
+
 ## 1.1.1 (2015-06-26)
 
 * Quote bare integer to pass validation check. (#28)
