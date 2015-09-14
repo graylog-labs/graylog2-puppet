@@ -1,6 +1,6 @@
 {
   "name": "graylog2-graylog2",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "author": "Johannes Graf",
   "license": "MIT License",
   "summary": "Install and manage a graylog2 server and the web-interface",
@@ -14,16 +14,22 @@
   ],
   "operatingsystem_support": [
     {
-      "operatingsystem":"CentOS",
-      "operatingsystemrelease": ["6.0"]
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": [
+        "6.0"
+      ]
     },
     {
       "operatingsystem": "Ubuntu",
-      "operatingsystemrelease": ["14.04"]
+      "operatingsystemrelease": [
+        "14.04"
+      ]
     },
     {
       "operatingsystem": "Debian",
-      "operatingsystemrelease": ["7"]
+      "operatingsystemrelease": [
+        "7"
+      ]
     }
   ],
   "dependencies": [
