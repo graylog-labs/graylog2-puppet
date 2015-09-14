@@ -1,7 +1,7 @@
 Graylog Puppet Module Changes
 =============================
 
-## 1.2.0 (not released yet)
+## 1.2.0 (2015-09-14)
 
 * Update for Graylog v1.2 release.
   * Added `elasticsearch_request_timeout` option.
