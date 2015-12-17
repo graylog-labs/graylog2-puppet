@@ -12,14 +12,28 @@ class graylog2::server::params {
   # OS specific settings.
   case $::osfamily {
     'Debian', 'RedHat': {
-      # Nothing yet.
+      $package_name = 'graylog-server'
+      $config_file = '/etc/graylog/server/server.conf'
+      $graylog_home_dir = '/var/lib/graylog-server'
+      $plugin_dir = '/usr/share/graylog-server/plugin'
+      $message_journal_dir = '/var/lib/graylog-server/journal'
+      $usage_statistics_dir = '/var/lib/graylog-server/usage-statistics'
+      $java_opts = '-Xms1g -Xmx1g -XX:NewRatio=1 -XX:PermSize=128m -XX:MaxPermSize=256m -server -XX:+ResizeTLAB -XX:+UseConcMarkSweepGC -XX:+CMSConcurrentMTEnabled -XX:+CMSClassUnloadingEnabled -XX:+UseParNewGC -XX:-OmitStackTraceInFastThrow'
+    }
+    'Gentoo': {
+      $package_name = 'app-admin/graylog-server'
+      $config_file = '/etc/graylog/graylog-server.conf'
+      $graylog_home_dir = '/opt/graylog-server'
+      $plugin_dir = '/opt/graylog-server/plugin'
+      $message_journal_dir = '/opt/graylog-server/journal'
+      $usage_statistics_dir = '/opt/graylog-server/usage-statistics'
+      $java_opts = '-Djava.library.path=${GRAYLOG_HOME}/lib/sigar -Xms1g -Xmx1g -XX:NewRatio=1 -XX:PermSize=128m -XX:MaxPermSize=256m -server -XX:+ResizeTLAB -XX:+UseConcMarkSweepGC -XX:+CMSConcurrentMTEnabled -XX:+CMSClassUnloadingEnabled -XX:+UseParNewGC -XX:-OmitStackTraceInFastThrow'
     }
     default: {
       fail("${::osfamily} is not supported by ${module_name}")
     }
   }
 
-  $package_name = 'graylog-server'
   $package_version = 'installed'
 
   $service_name  = 'graylog-server'
@@ -27,8 +41,11 @@ class graylog2::server::params {
   $service_ensure = 'running'
   $service_enable = true
 
-  $config_file = '/etc/graylog/server/server.conf'
+
   $daemon_username = 'graylog'
+
+  $log_file = '/var/log/graylog/graylog-server.log'
+  $pid_file = '/run/graylog/graylog-server.pid'
 
   # Config file variables.
   $alert_check_interval = '60'
@@ -79,10 +96,8 @@ class graylog2::server::params {
   $inputbuffer_ring_size = '65536'
   $inputbuffer_wait_strategy = 'blocking'
   $is_master = true
-  $java_opts = '-Xms1g -Xmx1g -XX:NewRatio=1 -XX:PermSize=128m -XX:MaxPermSize=256m -server -XX:+ResizeTLAB -XX:+UseConcMarkSweepGC -XX:+CMSConcurrentMTEnabled -XX:+CMSClassUnloadingEnabled -XX:+UseParNewGC -XX:-OmitStackTraceInFastThrow'
   $lb_recognition_period_seconds = '3'
   $ldap_connection_timeout = '2000'
-  $message_journal_dir = '/var/lib/graylog-server/journal'
   $message_journal_enabled = true
   $message_journal_flush_age = '1m'
   $message_journal_flush_interval = '1000000'
@@ -112,7 +127,6 @@ class graylog2::server::params {
   $output_flush_interval = '1'
   $output_module_timeout = '10000'
   $password_secret = undef
-  $plugin_dir = '/usr/share/graylog-server/plugin'
   $processbuffer_processors = '5'
   $processor_wait_strategy = 'blocking'
   $rest_enable_cors = false
@@ -153,7 +167,6 @@ class graylog2::server::params {
   $transport_email_web_interface_url = false
   $udp_recvbuffer_sizes = '1048576'
   $usage_statistics_cache_timeout = '15m'
-  $usage_statistics_dir = '/var/lib/graylog-server/usage-statistics'
   $usage_statistics_enabled = true
   $usage_statistics_gzip_enabled = true
   $usage_statistics_initial_delay = '5m'

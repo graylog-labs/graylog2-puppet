@@ -11,6 +11,9 @@
 class graylog2::server::configure (
   $config_file,
   $daemon_username,
+  $graylog_home_dir,
+  $log_file,
+  $pid_file,
 
   $alert_check_interval,
   $allow_highlighting,
@@ -272,6 +275,9 @@ class graylog2::server::configure (
 
   validate_absolute_path(
     $config_file,
+    $graylog_home_dir,
+    $log_file,
+    $pid_file,
     $message_journal_dir,
     $node_id_file,
     $plugin_dir,
@@ -334,6 +340,15 @@ class graylog2::server::configure (
         group   => 'root',
         mode    => '0644',
         content => template("${module_name}/server.sysconfig.erb"),
+        }
+      }
+    'Gentoo': {
+      file { '/etc/conf.d/graylog-server':
+        ensure  => present,
+        owner   => 'root',
+        group   => 'root',
+        mode    => '0644',
+        content => template("${module_name}/server.gentoo.defaults.erb"),
         }
       }
     default: {

@@ -12,7 +12,7 @@ class graylog2::dashboard::params {
 
   # OS specific settings.
   case $::osfamily {
-    'Debian', 'RedHat': {
+    'Debian', 'RedHat', 'Gentoo': {
       # Nothing yet.
     }
     default: {

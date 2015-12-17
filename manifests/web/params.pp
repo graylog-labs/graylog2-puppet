@@ -13,14 +13,23 @@ class graylog2::web::params {
   # OS specific settings.
   case $::osfamily {
     'Debian', 'RedHat': {
-      # Nothing yet.
+      $package_name = 'graylog-web'
+      $config_file = '/etc/graylog/web/web.conf'
+      $bin_file = '/usr/share/graylog-web-interface/bin/graylog-web-interface'
+    }
+    'Gentoo': {
+      $package_name = 'app-admin/graylog-web-interface'
+      $config_file = '/etc/graylog/graylog-web-interface.conf'
+      $bin_file = '/opt/graylog-web-interface/bin/graylog-web-interface'
     }
     default: {
       fail("${::osfamily} is not supported by ${module_name}")
     }
   }
 
-  $package_name = 'graylog-web'
+  $log_file = '/var/log/graylog/graylog-web.log'
+
+  $pid_file = '/run/graylog/graylog-web.pid'
 
   $package_version = 'installed'
 
@@ -48,8 +57,6 @@ class graylog2::web::params {
 
   $extra_args = ''
   $java_opts = ''
-
-  $config_file = '/etc/graylog/web/web.conf'
 
   $daemon_username = 'graylog-web'
 

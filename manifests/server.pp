@@ -9,11 +9,14 @@
 # Copyright 2014 synyx GmbH & Co. KG
 #
 class graylog2::server (
-  $package_version = $graylog2::server::params::package_version,
-  $service_ensure  = $graylog2::server::params::service_ensure,
-  $service_enable  = $graylog2::server::params::service_enable,
-  $config_file     = $graylog2::server::params::config_file,
-  $daemon_username = $graylog2::server::params::daemon_username,
+  $package_version                                    = $graylog2::server::params::package_version,
+  $service_ensure                                     = $graylog2::server::params::service_ensure,
+  $service_enable                                     = $graylog2::server::params::service_enable,
+  $config_file                                        = $graylog2::server::params::config_file,
+  $daemon_username                                    = $graylog2::server::params::daemon_username,
+  $graylog_home_dir                                   = $graylog2::server::params::graylog_home_dir,
+  $log_file                                           = $graylog2::server::params::log_file,
+  $pid_file                                           = $graylog2::server::params::pid_file,
 
   $alert_check_interval                               = $graylog2::server::params::alert_check_interval,
   $allow_highlighting                                 = $graylog2::server::params::allow_highlighting,
@@ -149,14 +152,17 @@ class graylog2::server (
   $versionchecks_uri                                  = $graylog2::server::params::versionchecks_uri,
 ) inherits graylog2::server::params {
 
-  anchor {'graylog2::server::start': }->
-  class {'graylog2::server::package':
+  anchor { 'graylog2::server::start': }->
+  class { 'graylog2::server::package':
     package => $graylog2::server::params::package_name,
     version => $package_version,
   } ->
-  class {'graylog2::server::configure':
-    config_file     => $config_file,
-    daemon_username => $daemon_username,
+  class { 'graylog2::server::configure':
+    config_file                                        => $config_file,
+    daemon_username                                    => $daemon_username,
+    graylog_home_dir                                   => $graylog_home_dir,
+    log_file                                           => $log_file,
+    pid_file                                           => $pid_file,
 
     alert_check_interval                               => $alert_check_interval,
     allow_highlighting                                 => $allow_highlighting,
@@ -291,11 +297,11 @@ class graylog2::server (
     versionchecks                                      => $versionchecks,
     versionchecks_uri                                  => $versionchecks_uri,
   }~>
-  class {'graylog2::server::service':
+  class { 'graylog2::server::service':
     service_name   => $graylog2::server::params::service_name,
     service_ensure => $service_ensure,
     service_enable => $service_enable,
   } ->
-  anchor {'graylog2::server::end': }
+  anchor { 'graylog2::server::end': }
 
 }

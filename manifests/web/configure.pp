@@ -11,6 +11,9 @@
 class graylog2::web::configure (
   $config_file,
   $daemon_username,
+  $bin_file,
+  $log_file,
+  $pid_file,
   $graylog2_server_uris,
   $application_secret,
   $command_wrapper,
@@ -41,6 +44,9 @@ class graylog2::web::configure (
 
   validate_absolute_path(
     $config_file,
+    $bin_file,
+    $log_file,
+    $pid_file,
   )
 
   # This is required and there is no default!
@@ -75,6 +81,15 @@ class graylog2::web::configure (
         group   => 'root',
         mode    => '0644',
         content => template("${module_name}/web.sysconfig.erb"),
+      }
+    }
+    'Gentoo': {
+      file { '/etc/conf.d/graylog-web':
+        ensure  => present,
+        owner   => 'root',
+        group   => 'root',
+        mode    => '0644',
+        content => template("${module_name}/web.gentoo.default.erb"),
       }
     }
     default: {

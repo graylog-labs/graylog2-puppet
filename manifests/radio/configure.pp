@@ -150,6 +150,19 @@ class graylog2::radio::configure (
         content => $template_content,
         }
       }
+    'Gentoo': {
+      $template_content = $template_file ? {
+        ''      => template("${module_name}/radio.gentoo.default.erb"),
+        default => template("${module_name}/${template_file}"),
+      }
+      file { '/etc/conf.d/graylog-radio':
+        ensure  => present,
+        owner   => 'root',
+        group   => 'root',
+        mode    => '0644',
+        content => $template_content,
+        }
+      }
     default: {
       fail("${::osfamily} is not supported by ${module_name}")
     }
