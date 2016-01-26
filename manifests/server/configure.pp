@@ -144,6 +144,13 @@ class graylog2::server::configure (
   $usage_statistics_url,
   $versionchecks,
   $versionchecks_uri,
+  $admin_user,
+  $admin_pass,
+  $api_port,
+  $in_bypass_prefixes,
+  $out_bypass_prefixes,
+  $stream_bypass_prefixes,
+  $user_bypass_prefixes,
 ) {
   validate_bool(
     $allow_highlighting,
@@ -268,6 +275,9 @@ class graylog2::server::configure (
     $usage_statistics_report_interval,
     $usage_statistics_url,
     $versionchecks_uri,
+    $admin_user,
+    $admin_pass,
+    $api_port,
   )
 
   validate_absolute_path(
@@ -340,4 +350,20 @@ class graylog2::server::configure (
       fail("${::osfamily} is not supported by ${module_name}")
     }
   }
+
+  #preparing files for native types
+  # in this directory are placed two important files for the native types, declared below
+  file{'/var/lib/puppet/module_data/graylog2':
+    ensure => 'directory',
+  }
+  # file that contains the configuration for the native types
+  # TODO deal with password
+  file{'/var/lib/puppet/module_data/graylog2/types_conf.yaml':
+    content => template('graylog2/types_conf.yaml.erb'),
+  }
+  # file that keeps a small YAML-based table of strearule-id -> names
+  file{'/var/lib/puppet/module_data/graylog2/streamrule_ids.yaml':
+    ensure  => 'present',
+  }
+
 }

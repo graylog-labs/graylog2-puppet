@@ -1,0 +1,19 @@
+graylog_api_port:     <%= @api_port %>
+graylog_admin_user:   '<%= @admin_user %>'
+graylog_admin_pass:   '<%= @admin_pass %>'
+input_bypass_prefixes:
+<% @in_bypass_prefixes.each do |prefix| -%>
+  - '<%= prefix %>'
+<% end -%>
+output_bypass_prefixes:
+<% @out_bypass_prefixes.each do |prefix| -%>
+  - '<%= prefix %>'
+<% end -%>
+stream_bypass_prefixes:
+<% @stream_bypass_prefixes.each do |prefix| -%>
+  - '<%= prefix %>'
+<% end -%>
+user_bypass_prefixes:
+<% @user_bypass_prefixes.each do |prefix| -%>
+  - '<%= prefix %>'
+<% end -%>
