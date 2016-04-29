@@ -3,6 +3,11 @@ Graylog
 
 [![Build Status](https://travis-ci.org/Graylog2/graylog2-puppet.png)](https://travis-ci.org/Graylog2/graylog2-puppet)
 
+**This module only supports Graylog 1.x!**
+
+We started a new Puppet module for Graylog 2.0 over at https://github.com/Graylog2/puppet-graylog!
+This one will be deprecated soon.
+
 
 Table of Contents
 -----------------
