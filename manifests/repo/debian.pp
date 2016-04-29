@@ -26,10 +26,11 @@ class graylog2::repo::debian (
       release           => $release,
       repos             => $repos,
       pin               => $pin,
-      include_src       => false,
-      required_packages => ['apt-transport-https'],
+      include           => { 'src' => false },
       require           => File['/etc/apt/trusted.gpg.d/graylog2-keyring.gpg']
     }
+
+    Package['apt-transport-https'] -> Apt::Source[$repo_name]
 
     file {'/etc/apt/trusted.gpg.d/graylog2-keyring.gpg':
       ensure => present,
