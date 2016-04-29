@@ -16,6 +16,7 @@ class graylog2::server::service (
 
   $service_provider = $::operatingsystem ? {
     'Ubuntu' => 'upstart',
+    'Gentoo' => 'openrc',
     default  => undef,
   }
 

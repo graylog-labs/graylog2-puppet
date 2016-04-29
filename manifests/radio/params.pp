@@ -12,7 +12,7 @@ class graylog2::radio::params {
 
   # OS specific settings.
   case $::osfamily {
-    'Debian', 'RedHat': {
+    'Debian', 'RedHat', 'Gentoo': {
       # Nothing yet.
     }
     default: {

@@ -15,6 +15,7 @@ class graylog2::params {
   $repo_release = $::osfamily ? {
     'Debian' => $::lsbdistcodename,
     'RedHat' => '',
+    'Gentoo' => '',
     default  => fail("${::osfamily} is not supported by ${module_name}")
   }
 
@@ -23,18 +24,21 @@ class graylog2::params {
   $repo_key_source = $::osfamily ? {
       'Debian' => '',
       'Redhat' => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-graylog2',
+      'Gentoo' => '',
       default => fail("${::osfamily} is not supported by ${module_name}")
   }
 
   $repo_gpgcheck = $::osfamily ? {
       'Debian' => 0,
       'Redhat' => 1,
+      'Gentoo' => 0,
       default => fail("${::osfamily} is not supported by ${module_name}")
   }
 
   $repo_enabled = $::osfamily ? {
       'Debian' => 0,
       'Redhat' => 1,
+      'Gentoo' => 0,
       default => fail("${::osfamily} is not supported by ${module_name}")
   }
 

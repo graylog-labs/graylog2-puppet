@@ -1,0 +1,20 @@
+# WARNING: Maintained by Puppet. Manual changes will be lost!
+
+# Graylog Config:
+GRAYLOG_CONF="<%= @config_file %>"
+
+# Graylog Log:
+GRAYLOG_LOG="<%= @log_file %>"
+
+# Graylog PID:
+GRAYLOG_PID="<%= @pid_file %>"
+
+# Graylog Home:
+GRAYLOG_HOME="<%= @graylog_home_dir %>"
+
+# Default Java options for heap and garbage collection.
+DEFAULT_JAVA_OPTS="<%= @java_opts %>"
+
+# Program that will be used to wrap the graylog-server command. Useful to
+# support programs like authbind.
+GRAYLOG_COMMAND_WRAPPER="<%= @command_wrapper %>"
