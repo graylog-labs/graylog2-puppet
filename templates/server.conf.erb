@@ -192,7 +192,7 @@ elasticsearch_http_enabled = <%= @elasticsearch_http_enabled %>
 
 elasticsearch_discovery_zen_ping_multicast_enabled = <%= @elasticsearch_discovery_zen_ping_multicast_enabled %>
 <% if @elasticsearch_discovery_zen_ping_unicast_hosts %>
-elasticsearch_discovery_zen_ping_unicast_hosts = <%= @elasticsearch_discovery_zen_ping_unicast_hosts %>
+elasticsearch_discovery_zen_ping_unicast_hosts = <%= @elasticsearch_discovery_zen_ping_unicast_hosts.join(',') %>
 <% else %>
 #elasticsearch_discovery_zen_ping_unicast_hosts = 192.168.1.203:9300
 <% end %>
