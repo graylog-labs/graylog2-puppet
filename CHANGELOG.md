@@ -1,6 +1,18 @@
 Graylog Puppet Module Changes
 =============================
 
+## 1.2.1 (2016-04-29)
+
+**DEPRECATION NOTICE**
+
+We started a new Graylog Puppet module over at https://forge.puppet.com/graylog/graylog which
+supports Graylog 2.0.
+
+This module will be deprecated!
+
+* Fix `rest_tls_*_file` validations. (#38)
+* Fix problem with multiple values for `elasticsearch_discovery_zen_ping_unicast_hosts`. (#36)
+
 ## 1.2.0 (2015-09-14)
 
 * Update for Graylog v1.2 release.
