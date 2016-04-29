@@ -123,8 +123,8 @@ class graylog2::server::params {
   $rest_max_header_size = '8192'
   $rest_max_initial_line_length = '4096'
   $rest_thread_pool_size = '16'
-  $rest_tls_cert_file = false
-  $rest_tls_key_file = false
+  $rest_tls_cert_file = undef
+  $rest_tls_key_file = undef
   $rest_tls_key_password = false
   $rest_transport_uri = 'http://127.0.0.1:12900/'
   $rest_worker_threads_max_pool_size = '16'
