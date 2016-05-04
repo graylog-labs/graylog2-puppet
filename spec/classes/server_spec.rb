@@ -20,6 +20,7 @@ describe 'graylog2::server' do
     let(:default_facts) do
       {
         :osfamily => dist,
+        :memorysize_mb => 12000,
       }
     end
 
@@ -40,7 +41,7 @@ describe 'graylog2::server' do
         should contain_package('graylog-server').with_ensure('installed')
       }
       it {
-        should contain_file(defaults_path).with_content(/^GRAYLOG_SERVER_JAVA_OPTS="-Xms1g -Xmx1g -XX:NewRatio=1 -XX:PermSize=128m -XX:MaxPermSize=256m -server -XX:\+ResizeTLAB -XX:\+UseConcMarkSweepGC -XX:\+CMSConcurrentMTEnabled -XX:\+CMSClassUnloadingEnabled -XX:\+UseParNewGC -XX:-OmitStackTraceInFastThrow"/)
+        should contain_file(defaults_path).with_content(/^GRAYLOG_SERVER_JAVA_OPTS="-Xms6000 -Xmx6000 -XX:NewRatio=1 -XX:PermSize=256m -XX:MaxPermSize=256m -server -XX:\+ResizeTLAB -XX:\+UseConcMarkSweepGC -XX:\+CMSConcurrentMTEnabled -XX:\+CMSClassUnloadingEnabled -XX:\+UseParNewGC -XX:-OmitStackTraceInFastThrow"/)
       }
     end
 
@@ -60,4 +61,19 @@ describe 'graylog2::server' do
     end
   end
 
+  context 'should allow to set Xms and Xmx through max_heap, and PermSize through perm_size' do
+    let(:facts) do
+      {
+      }.merge default_facts
+    end
+    let(:params) do
+      {
+        :max_heap => '3g',
+        :perm_size => '300m',
+      }.merge default_params
+    end
+    it {
+      should contain_file(defaults_path).with_content(/^GRAYLOG_SERVER_JAVA_OPTS="-Xms3g -Xmx3g -XX:NewRatio=1 -XX:PermSize=300m -XX:MaxPermSize=300m -server -XX:\+ResizeTLAB -XX:\+UseConcMarkSweepGC -XX:\+CMSConcurrentMTEnabled -XX:\+CMSClassUnloadingEnabled -XX:\+UseParNewGC -XX:-OmitStackTraceInFastThrow"/)
+    }
+  end
 end

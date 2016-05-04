@@ -3,8 +3,14 @@
 # Path to the java executable.
 JAVA=/usr/bin/java
 
+<%- if @java_opts.include? '-Xms' -%>
 # Default Java options for heap and garbage collection.
-GRAYLOG_SERVER_JAVA_OPTS="<%= @java_opts %>"
+GRAYLOG_SERVER_JAVA_OPTS="<%= @java_opts %><%= @java_opts_extra %>"
+<%- else -%>
+# Default Java options for heap and garbage collection.
+<%- jvm_memory="-Xms#{@max_heap} -Xmx#{@max_heap} -XX:NewRatio=1 -XX:PermSize=#{@perm_size} -XX:MaxPermSize=#{@perm_size}" -%>
+GRAYLOG_SERVER_JAVA_OPTS="<%= jvm_memory %> <%= @java_opts %><%= @java_opts_extra %>"
+<%- end -%>
 
 # Pass some extra args to graylog-server. (i.e. "-d" to enable debug mode)
 GRAYLOG_SERVER_ARGS="<%= @extra_args %>"

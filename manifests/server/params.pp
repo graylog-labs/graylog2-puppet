@@ -79,7 +79,10 @@ class graylog2::server::params {
   $inputbuffer_ring_size = '65536'
   $inputbuffer_wait_strategy = 'blocking'
   $is_master = true
-  $java_opts = '-Xms1g -Xmx1g -XX:NewRatio=1 -XX:PermSize=128m -XX:MaxPermSize=256m -server -XX:+ResizeTLAB -XX:+UseConcMarkSweepGC -XX:+CMSConcurrentMTEnabled -XX:+CMSClassUnloadingEnabled -XX:+UseParNewGC -XX:-OmitStackTraceInFastThrow'
+  $max_heap =  clamp(1024, $::memorysize_mb / 2, 32000)
+  $perm_size = '256m'
+  $java_opts = '-server -XX:+ResizeTLAB -XX:+UseConcMarkSweepGC -XX:+CMSConcurrentMTEnabled -XX:+CMSClassUnloadingEnabled -XX:+UseParNewGC -XX:-OmitStackTraceInFastThrow'
+  $java_opts_extra = ''
   $lb_recognition_period_seconds = '3'
   $ldap_connection_timeout = '2000'
   $message_journal_dir = '/var/lib/graylog-server/journal'
