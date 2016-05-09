@@ -80,7 +80,7 @@ class graylog2::server::params {
   $inputbuffer_wait_strategy = 'blocking'
   $is_master = true
   $max_heap =  clamp(1024, $::memorysize_mb / 2, 32000)
-  $perm_size = '256m'
+  $perm_size = clamp(256, $max_heap / 20, 1024)
   $java_opts = '-server -XX:+ResizeTLAB -XX:+UseConcMarkSweepGC -XX:+CMSConcurrentMTEnabled -XX:+CMSClassUnloadingEnabled -XX:+UseParNewGC -XX:-OmitStackTraceInFastThrow'
   $java_opts_extra = ''
   $lb_recognition_period_seconds = '3'

@@ -41,7 +41,7 @@ describe 'graylog2::server' do
         should contain_package('graylog-server').with_ensure('installed')
       }
       it {
-        should contain_file(defaults_path).with_content(/^GRAYLOG_SERVER_JAVA_OPTS="-Xms6000 -Xmx6000 -XX:NewRatio=1 -XX:PermSize=256m -XX:MaxPermSize=256m -server -XX:\+ResizeTLAB -XX:\+UseConcMarkSweepGC -XX:\+CMSConcurrentMTEnabled -XX:\+CMSClassUnloadingEnabled -XX:\+UseParNewGC -XX:-OmitStackTraceInFastThrow"/)
+        should contain_file(defaults_path).with_content(/^GRAYLOG_SERVER_JAVA_OPTS="-Xms6000m -Xmx6000m -XX:NewRatio=1 -XX:PermSize=300m -XX:MaxPermSize=300m -server -XX:\+ResizeTLAB -XX:\+UseConcMarkSweepGC -XX:\+CMSConcurrentMTEnabled -XX:\+CMSClassUnloadingEnabled -XX:\+UseParNewGC -XX:-OmitStackTraceInFastThrow"/)
       }
     end
 
