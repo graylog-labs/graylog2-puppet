@@ -42,6 +42,8 @@ describe 'graylog2::server' do
       it {
         should contain_file(defaults_path).with_content(/^GRAYLOG_SERVER_JAVA_OPTS="-Xms1g -Xmx1g -XX:NewRatio=1 -XX:PermSize=128m -XX:MaxPermSize=256m -server -XX:\+ResizeTLAB -XX:\+UseConcMarkSweepGC -XX:\+CMSConcurrentMTEnabled -XX:\+CMSClassUnloadingEnabled -XX:\+UseParNewGC -XX:-OmitStackTraceInFastThrow"/)
       }
+      it { should contain_file('/var/lib/puppet/module_data/graylog2/types_conf.yaml') }
+      it { should contain_file('/var/lib/puppet/module_data/graylog2/streamrule_ids.yaml') }
     end
 
     context 'should allow to add java_opts with Xms and Xmx' do

@@ -163,4 +163,11 @@ class graylog2::server::params {
   $usage_statistics_url = 'https://stats-collector.graylog.com/submit/'
   $versionchecks = true
   $versionchecks_uri = 'https://versioncheck.graylog.com/check'
+  $admin_user = 'admin'
+  $admin_pass = undef
+  $api_port = '12900'
+  $in_bypass_prefixes = []
+  $out_bypass_prefixes = []
+  $stream_bypass_prefixes = []
+  $user_bypass_prefixes = []
 }

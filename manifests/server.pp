@@ -147,6 +147,13 @@ class graylog2::server (
   $usage_statistics_url                               = $graylog2::server::params::usage_statistics_url,
   $versionchecks                                      = $graylog2::server::params::versionchecks,
   $versionchecks_uri                                  = $graylog2::server::params::versionchecks_uri,
+  $admin_user                                         = $graylog2::server::params::admin_user,
+  $admin_pass                                         = $graylog2::server::params::admin_pass,
+  $api_port                                           = $graylog2::server::params::api_port,
+  $in_bypass_prefixes                                 = $graylog2::server::params::in_bypass_prefixes,
+  $out_bypass_prefixes                                = $graylog2::server::params::out_bypass_prefixes,
+  $stream_bypass_prefixes                             = $graylog2::server::params::stream_bypass_prefixes,
+  $user_bypass_prefixes                               = $graylog2::server::params::user_bypass_prefixes,
 ) inherits graylog2::server::params {
 
   anchor {'graylog2::server::start': }->
@@ -290,6 +297,13 @@ class graylog2::server (
     usage_statistics_url                               => $usage_statistics_url,
     versionchecks                                      => $versionchecks,
     versionchecks_uri                                  => $versionchecks_uri,
+    admin_user                                         => $admin_user,
+    admin_pass                                         => $admin_pass,
+    api_port                                           => $api_port,
+    in_bypass_prefixes                                 => $in_bypass_prefixes,
+    out_bypass_prefixes                                => $out_bypass_prefixes,
+    stream_bypass_prefixes                             => $stream_bypass_prefixes,
+    user_bypass_prefixes                               => $user_bypass_prefixes,
   }~>
   class {'graylog2::server::service':
     service_name   => $graylog2::server::params::service_name,
