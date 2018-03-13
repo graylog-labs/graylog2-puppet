@@ -8,7 +8,8 @@ Graylog
 **This module only supports Graylog 1.x!**
 
 We started a new Puppet module for Graylog 2.0 over at: https://forge.puppet.com/graylog/graylog
-This one will be deprecated soon.
+
+**This one is deprecated and no longer maintained.**
 
 
 Table of Contents
